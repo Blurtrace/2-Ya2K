@@ -1,0 +1,157 @@
+/* ==========================================================================
+   TOKENS DE COLOR Y ESTILOS DE WINDOWS 98 / Y2K (ECOS)
+   ========================================================================== */
+
+:root {
+  /* Fondo clásico del escritorio (Teal) */
+  --desktop: #008080;
+
+  /* Superficie 3D: ventanas, botones, barra de tareas */
+  --face: #C0C0C0;
+
+  /* Biseles tridimensionales */
+  --highlight-3d: #FFFFFF;
+  --light-3d: #DFDFDF;
+  --shadow-3d: #808080;
+  --dark-shadow-3d: #0A0A0A;
+
+  /* Barra de título de ventana activa */
+  --title-active-start: #000080;
+  --title-active-end: #1084D0;
+
+  /* Barra de título de ventana inactiva */
+  --title-inactive-start: #808080;
+  --title-inactive-end: #B5B5B5;
+
+  /* Texto de títulos */
+  --title-text: #FFFFFF;
+
+  /* Áreas de contenido blanco (bloc de notas, carpetas internas) */
+  --window: #FFFFFF;
+  --window-text: #000000;
+
+  /* Elemento seleccionado (iconos, menús) */
+  --highlight: #000080;
+  --highlight-text: #FFFFFF;
+
+  /* Fondo de tooltips clásicos */
+  --tooltip-bg: #FFFFE1;
+}
+
+/* Mapeo de tokens a utilidades de TailwindCSS v4 */
+@theme inline {
+  --color-desktop: var(--desktop);
+  --color-face: var(--face);
+  --color-highlight-3d: var(--highlight-3d);
+  --color-light-3d: var(--light-3d);
+  --color-shadow-3d: var(--shadow-3d);
+  --color-dark-shadow-3d: var(--dark-shadow-3d);
+  --color-title-active-start: var(--title-active-start);
+  --color-title-active-end: var(--title-active-end);
+  --color-title-inactive-start: var(--title-inactive-start);
+  --color-title-inactive-end: var(--title-inactive-end);
+  --color-title-text: var(--title-text);
+  --color-window: var(--window);
+  --color-window-text: var(--window-text);
+  --color-highlight: var(--highlight);
+  --color-highlight-text: var(--highlight-text);
+  --color-tooltip-bg: var(--tooltip-bg);
+}
+
+/* ==========================================================================
+   UTILIDADES DE BISEL 3D Y ESTILO RETRO (ESQUINAS RECTAS, SIN BORDER-RADIUS)
+   ========================================================================== */
+
+/* Bisel elevado: botones normales, marco exterior de ventanas */
+@utility win-raised {
+  border-top: 1px solid var(--highlight-3d);
+  border-left: 1px solid var(--highlight-3d);
+  border-right: 1px solid var(--dark-shadow-3d);
+  border-bottom: 1px solid var(--dark-shadow-3d);
+  box-shadow: inset 1px 1px 0px var(--light-3d), inset -1px -1px 0px var(--shadow-3d);
+}
+
+/* Bisel presionado/hundido activo: botones pulsados o ventanas activas en la barra */
+@utility win-pressed {
+  border-top: 1px solid var(--dark-shadow-3d);
+  border-left: 1px solid var(--dark-shadow-3d);
+  border-right: 1px solid var(--highlight-3d);
+  border-bottom: 1px solid var(--highlight-3d);
+  box-shadow: inset 1px 1px 0px var(--shadow-3d), inset -1px -1px 0px var(--light-3d);
+}
+
+/* Bisel hundido: campos de texto, fondo de explorador, bandeja del sistema */
+@utility win-sunken {
+  border-top: 1px solid var(--shadow-3d);
+  border-left: 1px solid var(--shadow-3d);
+  border-right: 1px solid var(--highlight-3d);
+  border-bottom: 1px solid var(--highlight-3d);
+  box-shadow: inset 1px 1px 0px var(--dark-shadow-3d), inset -1px -1px 0px var(--light-3d);
+}
+
+/* Línea separadora grabada */
+@utility win-etched {
+  border-top: 1px solid var(--shadow-3d);
+  border-bottom: 1px solid var(--highlight-3d);
+}
+
+/* Barra de título con degradado activo */
+@utility win-titlebar-active {
+  background: linear-gradient(90deg, var(--title-active-start) 0%, var(--title-active-end) 100%);
+  color: var(--title-text);
+}
+
+/* Barra de título inactiva */
+@utility win-titlebar-inactive {
+  background: linear-gradient(90deg, var(--title-inactive-start) 0%, var(--title-inactive-end) 100%);
+  color: #D4D0C8;
+}
+
+/* Botón clásico de Windows 98 */
+.win-button {
+  background-color: var(--face);
+  color: var(--window-text);
+  border-top: 1px solid var(--highlight-3d);
+  border-left: 1px solid var(--highlight-3d);
+  border-right: 1px solid var(--dark-shadow-3d);
+  border-bottom: 1px solid var(--dark-shadow-3d);
+  box-shadow: inset 1px 1px 0px var(--light-3d), inset -1px -1px 0px var(--shadow-3d);
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+
+.win-button:active:not(:disabled) {
+  border-top: 1px solid var(--dark-shadow-3d);
+  border-left: 1px solid var(--dark-shadow-3d);
+  border-right: 1px solid var(--highlight-3d);
+  border-bottom: 1px solid var(--highlight-3d);
+  box-shadow: inset 1px 1px 0px var(--shadow-3d), inset -1px -1px 0px var(--light-3d);
+  padding-top: 3px;
+  padding-left: 7px;
+  padding-right: 5px;
+  padding-bottom: 1px;
+}
+
+.win-button:focus-visible {
+  outline: 1px dotted var(--window-text);
+  outline-offset: -4px;
+}
+
+.win-button:disabled {
+  color: var(--shadow-3d);
+  text-shadow: 1px 1px 0 var(--highlight-3d);
+  cursor: default;
+}
+
+/* Botón por defecto en diálogos (con borde exterior negro de 1px) */
+.win-button-default {
+  box-shadow: inset 1px 1px 0px var(--light-3d), inset -1px -1px 0px var(--shadow-3d), 0 0 0 1px var(--dark-shadow-3d);
+}
+
