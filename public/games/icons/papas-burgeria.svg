@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" shape-rendering="crispEdges">
+    <style>text { user-select: none; }</style>
+    
+      <rect width="64" height="64" rx="4" fill="#574b90"/>
+      <path d="M16 18 C16 10 48 10 48 18 Z" fill="#f5cd79"/>
+      <circle cx="24" cy="14" r="1" fill="#fff"/><circle cx="32" cy="13" r="1" fill="#fff"/><circle cx="40" cy="14" r="1" fill="#fff"/>
+      <rect x="14" y="20" width="36" height="4" fill="#2ed573"/>
+      <polygon points="14,26 50,26 46,31 18,31" fill="#e74c3c"/>
+      <rect x="14" y="32" width="36" height="5" fill="#f1c40f"/>
+      <rect x="12" y="38" width="40" height="7" rx="3" fill="#5c3818"/>
+      <rect x="16" y="47" width="32" height="6" rx="3" fill="#f5cd79"/>
+      <text x="32" y="60" font-family="sans-serif" font-size="7" font-weight="bold" fill="#f5cd79" text-anchor="middle">BURGER</text>
+    
+    <rect x="0.5" y="0.5" width="63" height="63" rx="3.5" fill="none" stroke="#f5cd79" stroke-width="1"/>
+  </svg>

@@ -128,13 +128,18 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
         </div>
 
         {/* Botones de control de ventana (Minimizar / Maximizar / Cerrar) */}
-        <div className="flex items-center space-x-[2px] flex-shrink-0">
+        <div
+          className="flex items-center space-x-[2px] flex-shrink-0"
+          onPointerDown={(e) => e.stopPropagation()}
+          onPointerUp={(e) => e.stopPropagation()}
+          onDoubleClick={(e) => e.stopPropagation()}
+        >
           {/* Botón Minimizar */}
           <button
             type="button"
             onClick={handleMinimize}
             aria-label={t('window.minimize')}
-            className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none"
+            className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none cursor-pointer"
           >
             _
           </button>
@@ -145,7 +150,7 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
             onClick={handleToggleMaximize}
             disabled={isMobile}
             aria-label={isMaximized ? t('window.restore') : t('window.maximize')}
-            className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none disabled:opacity-50"
+            className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none disabled:opacity-50 cursor-pointer"
           >
             {isMaximized ? '❐' : '□'}
           </button>
@@ -155,7 +160,7 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
             type="button"
             onClick={handleClose}
             aria-label={t('dialog.close')}
-            className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none ml-0.5"
+            className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none ml-0.5 cursor-pointer"
           >
             ✕
           </button>

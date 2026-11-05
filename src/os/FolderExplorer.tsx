@@ -30,22 +30,22 @@ export const FolderExplorer = ({ folder }: FolderExplorerProps) => {
       {/* Barra de menú clásica de Windows 98 */}
       <div className="flex items-center space-x-3 px-1 py-0.5 border-b border-[#808080] text-[11px]">
         <span className="hover:bg-[#000080] hover:text-white px-1 cursor-default">
-          Archivo
+          {t('explorer.file')}
         </span>
         <span className="hover:bg-[#000080] hover:text-white px-1 cursor-default">
-          Edición
+          {t('explorer.edit')}
         </span>
         <span className="hover:bg-[#000080] hover:text-white px-1 cursor-default">
-          Ver
+          {t('explorer.view')}
         </span>
         <span className="hover:bg-[#000080] hover:text-white px-1 cursor-default">
-          Ayuda
+          {t('explorer.help')}
         </span>
       </div>
 
       {/* Barra de dirección */}
       <div className="flex items-center px-1.5 py-1 text-[11px] space-x-1.5 bg-[#C0C0C0]">
-        <span className="text-[#808080]">Dirección:</span>
+        <span className="text-[#808080]">{t('explorer.address')}</span>
         <div className="flex-1 win-sunken bg-white px-1 py-0.5 text-black truncate">
           C:\ECOS\{t(folder.nameKey)}
         </div>
@@ -71,7 +71,7 @@ export const FolderExplorer = ({ folder }: FolderExplorerProps) => {
       {/* Barra de estado al pie del explorador */}
       <div className="win-sunken bg-[#C0C0C0] px-2 py-0.5 text-[11px] text-[#000000] flex justify-between">
         <span>{t('folder.itemsCount', { count: children.length })}</span>
-        <span>0 bytes</span>
+        <span>{t('explorer.bytes', { bytes: 0 })}</span>
       </div>
     </div>
   );

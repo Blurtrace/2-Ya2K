@@ -6,28 +6,14 @@ import type { FolderDef } from '@/os/state/types';
  */
 export const folders: FolderDef[] = [
   {
-    id: 'bank-of-memories',
-    nameKey: 'folder.bankOfMemories',        // "BANK OF MEMORIES"
-    icon: '/icons/folder-memories.png',
-    status: 'ready',                         // Contenedor: lista sus carpetas hijas
-    children: [
-      {
-        id: 'memories-carousel',
-        nameKey: 'folder.carousel',          // "Carousel"
-        icon: '/icons/folder-photos.png',
-        status: 'planned',                   // Stub hasta especificación del usuario
-      },
-      {
-        id: 'memories-games',
-        nameKey: 'folder.games',             // "Games"
-        icon: '/icons/folder-games.png',
-        status: 'planned',                   // Stub hasta especificación del usuario
-      },
-    ],
+    id: 'games',
+    nameKey: 'folder.games',                 // "Juegos" / "Games"
+    icon: '/icons/folder-games.png',
+    status: 'ready',                         // Carpeta independiente de juegos clásicos de Friv
   },
   {
     id: 'if-love-were-songs',
-    nameKey: 'folder.ifLoveWereSongs',       // "If love were songs"
+    nameKey: 'folder.ifLoveWereSongs',       // "Si el amor fuera canciones" / "If love were songs"
     icon: '/icons/folder-music.png',
     status: 'planned',                       // Stub
   },
@@ -39,7 +25,7 @@ export const folders: FolderDef[] = [
   },
   {
     id: 'our-love',
-    nameKey: 'folder.ourLove',               // "Our Love"
+    nameKey: 'folder.ourLove',               // "Nuestro Amor" / "Our Love"
     icon: '/icons/folder-love.png',
     status: 'planned',                       // Stub
   },

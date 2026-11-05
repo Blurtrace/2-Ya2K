@@ -40,12 +40,13 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       const offsetY = 50 + (openCount % 8) * 24;
       const nextZ = state.nextZ + 1;
 
+      const isGames = action.id === 'games';
       const newWindow: WindowState = {
         id: action.id,
-        x: offsetX,
-        y: offsetY,
-        width: 440,
-        height: 300,
+        x: isGames ? Math.max(16, offsetX - 40) : offsetX,
+        y: isGames ? 20 : offsetY,
+        width: isGames ? 740 : 440,
+        height: isGames ? 520 : 300,
         zIndex: nextZ,
         minimized: false,
         maximized: false,
@@ -86,7 +87,9 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
     }
 
     case 'FOCUS': {
-      if (state.activeId === action.id) {
+      const targetWindow = state.windows.find((w) => w.id === action.id);
+      // Solo omitir si ya es la activa Y NO está minimizada
+      if (state.activeId === action.id && targetWindow && !targetWindow.minimized) {
         return {
           ...state,
           startMenuOpen: false,
@@ -165,11 +168,10 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
     case 'MOVE': {
       return {
         ...state,
-        windows: state.windows.map((w) =>
-          w.id === action.id
-            ? { ...w, x: Math.max(0, action.x), y: Math.max(0, action.y) }
-            : w
-        ),
+        windows: state.windows.map((w) => {
+          if (w.id !== action.id || w.maximized) return w;
+          return { ...w, x: Math.max(0, action.x), y: Math.max(0, action.y) };
+        }),
       };
     }
 

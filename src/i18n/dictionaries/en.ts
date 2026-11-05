@@ -5,7 +5,6 @@
 export const dictionaryEn: Record<string, string> = {
   // Folder names
   'folder.bankOfMemories': 'BANK OF MEMORIES',
-  'folder.carousel': 'Carousel',
   'folder.games': 'Games',
   'folder.ifLoveWereSongs': 'If love were songs',
   'folder.comments': '<3',
@@ -13,6 +12,14 @@ export const dictionaryEn: Record<string, string> = {
   'folder.underConstruction': 'This folder is under construction.',
   'folder.back': 'Back',
   'folder.itemsCount': '{count} item(s)',
+
+  // Explorer menu
+  'explorer.file': 'File',
+  'explorer.edit': 'Edit',
+  'explorer.view': 'View',
+  'explorer.help': 'Help',
+  'explorer.address': 'Address:',
+  'explorer.bytes': '{bytes} bytes',
 
   // Taskbar & Tray
   'taskbar.start': 'Start',
@@ -45,5 +52,25 @@ export const dictionaryEn: Record<string, string> = {
   'window.minimize': 'Minimize',
   'window.maximize': 'Maximize',
   'window.restore': 'Restore',
+
+  // Games section
+  'games.title': 'Classic Friv Games',
+  'games.search': 'Search game...',
+  'games.all': 'All',
+  'games.cat2Players': '2 Players',
+  'games.catCooking': 'Cooking',
+  'games.catAdventure': 'Adventure',
+  'games.catStyle': 'Style & Beauty',
+  'games.catAction': 'Action & Skill',
+  'games.back': '◄ Back to games',
+  'games.fullscreen': 'Fullscreen',
+  'games.restart': 'Restart',
+  'games.loadSwf': 'Load .SWF',
+  'games.loadingRuffle': 'Loading Ruffle emulator (Flash)...',
+  'games.doubleClick': 'Double click on any game to play.',
+  'games.totalGames': '{count} games ready to play',
+  'games.controls': 'Controls',
+  'games.modeRuffle': 'Flash Mode (Ruffle)',
+  'games.modeWeb': 'Web Mode (HTML5)',
 };
 

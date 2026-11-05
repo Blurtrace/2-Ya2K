@@ -1,0 +1,4 @@
+# Bloquear indexación de todos los motores de búsqueda (Google, Bing, Yahoo, DuckDuckGo, etc.)
+User-agent: *
+Disallow: /
+

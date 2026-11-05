@@ -7,12 +7,16 @@ type DragOptions = {
   onMove: (x: number, y: number) => void;
 };
 
+// Umbral mínimo en píxeles para distinguir un clic de un arrastre intencional
+const DRAG_THRESHOLD = 3;
+
 /**
  * Hook funcional para arrastre de ventanas mediante Pointer Events y setPointerCapture.
  * Compatible con ratón y pantallas táctiles, sin clases ni librerías externas.
  */
 export const useDrag = ({ initialX, initialY, disabled = false, onMove }: DragOptions) => {
   const isDraggingRef = useRef(false);
+  const hasExceededThresholdRef = useRef(false);
   const startPosRef = useRef({ pointerX: 0, pointerY: 0, windowX: 0, windowY: 0 });
 
   const onPointerDown = useCallback(
@@ -22,6 +26,7 @@ export const useDrag = ({ initialX, initialY, disabled = false, onMove }: DragOp
       const target = event.currentTarget;
       target.setPointerCapture(event.pointerId);
       isDraggingRef.current = true;
+      hasExceededThresholdRef.current = false;
 
       startPosRef.current = {
         pointerX: event.clientX,
@@ -40,6 +45,13 @@ export const useDrag = ({ initialX, initialY, disabled = false, onMove }: DragOp
       const deltaX = event.clientX - startPosRef.current.pointerX;
       const deltaY = event.clientY - startPosRef.current.pointerY;
 
+      if (!hasExceededThresholdRef.current) {
+        if (Math.hypot(deltaX, deltaY) < DRAG_THRESHOLD) {
+          return; // Ignora micro-movimientos involuntarios
+        }
+        hasExceededThresholdRef.current = true;
+      }
+
       const nextX = Math.max(0, startPosRef.current.windowX + deltaX);
       const nextY = Math.max(0, startPosRef.current.windowY + deltaY);
 
@@ -51,6 +63,7 @@ export const useDrag = ({ initialX, initialY, disabled = false, onMove }: DragOp
   const onPointerUp = useCallback((event: React.PointerEvent<HTMLElement>) => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
+    hasExceededThresholdRef.current = false;
     try {
       event.currentTarget.releasePointerCapture(event.pointerId);
     } catch {
