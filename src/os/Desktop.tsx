@@ -8,6 +8,7 @@ import { Window } from './Window';
 import { FolderExplorer } from './FolderExplorer';
 import { FolderStub } from './FolderStub';
 import { GamesExplorer } from '@/folders/Games/GamesExplorer';
+import { TimelineAlbum } from '@/folders/Comments/TimelineAlbum';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { ContextMenu } from './ContextMenu';
@@ -74,6 +75,8 @@ export const Desktop = () => {
           <Window key={win.id} windowState={win} folderDef={folder}>
             {win.id === 'games' ? (
               <GamesExplorer />
+            ) : win.id === 'comments' ? (
+              <TimelineAlbum />
             ) : folder.children && folder.children.length > 0 ? (
               <FolderExplorer folder={folder} />
             ) : (

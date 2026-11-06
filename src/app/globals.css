@@ -25,3 +25,48 @@
   }
 }
 
+/* ================= REVELADO QUÍMICO INSTANTÁNEO POLAROID ================= */
+@keyframes polaroidDevelop {
+  0% {
+    filter: brightness(0) contrast(300%) saturate(0%);
+    opacity: 0.95;
+  }
+  25% {
+    filter: brightness(0.25) contrast(220%) saturate(15%) sepia(20%);
+    opacity: 0.98;
+  }
+  50% {
+    filter: brightness(0.6) contrast(170%) saturate(45%) sepia(10%);
+    opacity: 1;
+  }
+  75% {
+    filter: brightness(0.85) contrast(125%) saturate(80%) sepia(5%);
+  }
+  100% {
+    filter: brightness(1) contrast(100%) saturate(100%) sepia(0%);
+    opacity: 1;
+  }
+}
+
+.polaroid-developing {
+  animation: polaroidDevelop 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ================= VOLTEO 3D ================= */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+

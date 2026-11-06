@@ -21,7 +21,7 @@ export const folders: FolderDef[] = [
     id: 'comments',
     nameKey: 'folder.comments',              // "<3"
     icon: '/icons/folder-heart.png',
-    status: 'planned',                       // Stub
+    status: 'ready',                         // Álbum de fotos cronológico Polaroid Windows 98 Classic (<3)
   },
   {
     id: 'our-love',
