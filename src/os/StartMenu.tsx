@@ -173,6 +173,19 @@ export const StartMenu = ({ isOpen }: StartMenuProps) => {
           )}
         </div>
 
+        {/* Guía interactiva BT21 */}
+        <button
+          type="button"
+          onClick={() => {
+            dispatch({ type: 'OPEN_GUIDE' });
+            dispatch({ type: 'CLOSE_START' });
+          }}
+          className="w-full flex items-center space-x-2 px-3 py-1.5 text-left hover:bg-[#000080] hover:text-white cursor-pointer focus:outline-none"
+        >
+          <span className="text-[13px] leading-none">💜</span>
+          <span className="truncate">{t('guide.startMenuTitle')}</span>
+        </button>
+
         {/* Acerca de ECOS */}
         <button
           type="button"

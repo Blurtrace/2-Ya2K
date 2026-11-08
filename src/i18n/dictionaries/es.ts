@@ -368,4 +368,63 @@ export const dictionaryEs: Record<string, string> = {
   'loading.voucherValidator': 'Iniciando Validador de Vouchers...',
   'loading.specialVoucher': 'Cargando Voucher Especial...',
   'loading.recycleBin': 'Abriendo Papelera de reciclaje...',
+
+  // Guía interactiva BT21 (TATA & COOKY)
+  'guide.windowTitle': 'ECOS 98 — Guía BT21',
+  'guide.badgeTata': 'TATA (V)',
+  'guide.badgeCooky': 'COOKY (JK)',
+  'guide.stepOf': 'Paso {current} de {total}',
+  'guide.prev': '◀ Anterior',
+  'guide.next': 'Siguiente ▶',
+  'guide.finish': '¡Comenzar! 💜',
+  'guide.close': 'Cerrar',
+  'guide.minimize': 'Minimizar',
+  'guide.restore': 'Abrir Guía',
+  'guide.trayButton': 'Guía BT21',
+  'guide.trayTooltip': 'Abrir Guía de ECOS 98 con TATA y COOKY',
+  'guide.startMenuTitle': 'Guía del Sistema (BT21)',
+  'guide.miniBubble': '¡Haz clic para ver la guía! 💜',
+  'guide.openMyComputer': '📂 Abrir Mi PC',
+  'guide.openVouchers': '🎟️ Abrir Validador',
+  'guide.openOurLove': '📷 Abrir Nuestro Amor',
+  'guide.openComments': '💌 Abrir <3',
+  'guide.openMusic': '🎵 Abrir Reproductor',
+  'guide.openGames': '🎮 Abrir Juegos',
+  'guide.openRecycleBin': '🗑️ Abrir Papelera',
+
+  'guide.step0.title': '¡Bienvenida a ECOS 98!',
+  'guide.step0.text': '¡Annyeong, Yaczury! ✨ Soy TATA, viajé desde muy lejos para ser tu guía en este universo retro. Jandy construyó todo este sistema operativo en 1998... ¡solo para ti! 🪐',
+
+  'guide.step1.title': 'Cómo explorar el sistema',
+  'guide.step1.text': '¡Hola Yaczury! Cada icono en este escritorio guarda recuerdos, risas y sorpresas. Haz doble clic sobre cualquier carpeta para abrirla, o arrastra las ventanas como en una computadora clásica de antes.',
+
+  'guide.step2.title': 'Mi PC y Validador',
+  'guide.step2.text': 'En Mi PC encontrarás los engranajes de ECOS 98. Pero lo más importante está en su interior: ¡el acceso directo al Validador de Vouchers! 🎟️',
+
+  'guide.step3.title': 'Los 18 Vouchers Secretos',
+  'guide.step3.text': '¿Viste los 18 vouchers físicos que Jandy te entregó en persona? Si miras detrás de cada uno, encontrarás un código secreto de 10 dígitos. ¡Introdúcelos aquí para canjearlos uno por uno!',
+
+  'guide.step4.title': '¡Premio Especial Desbloqueable!',
+  'guide.step4.text': 'Cada voucher válido hará avanzar tu barra de progreso. Y cuando alcances los 18/18... ¡pssst! Se desbloqueará un Voucher Especial digital con una sorpresa secreta para raspar con tu cursor. ✨',
+
+  'guide.step5.title': 'Nuestro Amor (Álbum Cronológico)',
+  'guide.step5.text': '¡Mi carpeta favorita! 📷 Aquí reposan los recuerdos de ustedes dos ordenados año tras año, mes tras mes: desde esa primera cita a escondidas con McDonald\'s hasta sus caminatas por la Ciudad Amurallada en Cartagena.',
+
+  'guide.step6.title': 'El Poema de Cierre',
+  'guide.step6.text': 'Asegúrate de llegar hasta la última foto de 2026 en Nuestro Amor... Jandy preparó una dedicatoria muy sentida y un poema de Gustavo Adolfo Bécquer que te llegará directo al corazón. 🌹',
+
+  'guide.step7.title': 'Cápsula de Recuerdos <3',
+  'guide.step7.text': 'Esta carpeta con forma de corazón <3 es una pequeña galería nostálgica. Fotografías espontáneas, gestos lindos y pensamientos que capturan la esencia de lo que son juntos.',
+
+  'guide.step8.title': 'Si el amor fuera canciones',
+  'guide.step8.text': '¡Música, maestro! 🎶 Esta carpeta abre el clásico Windows Media Player 98, con canciones dedicadas. Pero para entrar necesitas una clave secreta... Solo alguien que conozca muy bien a Jandy sabrá la respuesta. 🔐',
+
+  'guide.step9.title': 'Juegos Clásicos',
+  'guide.step9.text': '¡Momento de jugar! 🎮 Jandy incluyó los 4 juegos más icónicos de toda una generación: Buscaminas, Solitario, 3D Pinball y el nostálgico Purble Place. ¡Incluso tienen sonidos retro auténticos!',
+
+  'guide.step10.title': 'La Papelera Prohibida',
+  'guide.step10.text': '¿Te atreves a mirar en la Papelera de Reciclaje? 👀 Jandy dejó cuatro archivos imposibles de borrar: dudas, ganas de dejar de verte, motivos para no amarte y enojos. ¡Intenta hacer clic en \'Vaciar la papelera\' a ver qué te dice el sistema! 😉',
+
+  'guide.step11.title': '¡Borahae, Yaczury! 💜',
+  'guide.step11.text': 'Esperamos que disfrutes cada rincón de ECOS 98, Yaczury. En el botón Inicio puedes cambiar el idioma entre Español e Inglés. Todo fue hecho a mano por alguien que te adora con toda su alma. ¡Borahae! 💜 보라해',
 };

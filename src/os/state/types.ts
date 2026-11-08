@@ -66,6 +66,9 @@ export type OsState = {
   iconSortOrder: IconSortOrder;
   isRefreshing: boolean;
   recycledIds: string[];
+  guideOpen: boolean;
+  guideMinimized: boolean;
+  guideStep: number;
 };
 
 /**
@@ -90,5 +93,11 @@ export type OsAction =
   | { type: 'END_REFRESH' }
   | { type: 'MOVE_TO_RECYCLE_BIN'; id: string }
   | { type: 'RESTORE_FROM_RECYCLE_BIN'; id: string }
-  | { type: 'RESTORE_ALL_FROM_RECYCLE_BIN' };
+  | { type: 'RESTORE_ALL_FROM_RECYCLE_BIN' }
+  | { type: 'OPEN_GUIDE'; step?: number }
+  | { type: 'CLOSE_GUIDE' }
+  | { type: 'MINIMIZE_GUIDE' }
+  | { type: 'RESTORE_GUIDE' }
+  | { type: 'SET_GUIDE_STEP'; step: number }
+  | { type: 'TOGGLE_GUIDE' };
 

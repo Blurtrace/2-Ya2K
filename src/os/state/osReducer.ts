@@ -11,6 +11,9 @@ export const initialOsState: OsState = {
   iconSortOrder: 'default',
   isRefreshing: false,
   recycledIds: [],
+  guideOpen: true,
+  guideMinimized: false,
+  guideStep: 0,
 };
 
 /**
@@ -317,6 +320,58 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       return {
         ...state,
         recycledIds: [],
+      };
+    }
+
+    case 'OPEN_GUIDE': {
+      return {
+        ...state,
+        guideOpen: true,
+        guideMinimized: false,
+        guideStep: action.step !== undefined ? action.step : state.guideStep,
+      };
+    }
+
+    case 'CLOSE_GUIDE': {
+      return {
+        ...state,
+        guideOpen: false,
+      };
+    }
+
+    case 'MINIMIZE_GUIDE': {
+      return {
+        ...state,
+        guideMinimized: true,
+      };
+    }
+
+    case 'RESTORE_GUIDE': {
+      return {
+        ...state,
+        guideOpen: true,
+        guideMinimized: false,
+      };
+    }
+
+    case 'SET_GUIDE_STEP': {
+      return {
+        ...state,
+        guideStep: Math.max(0, action.step),
+      };
+    }
+
+    case 'TOGGLE_GUIDE': {
+      if (!state.guideOpen || state.guideMinimized) {
+        return {
+          ...state,
+          guideOpen: true,
+          guideMinimized: false,
+        };
+      }
+      return {
+        ...state,
+        guideOpen: false,
       };
     }
 

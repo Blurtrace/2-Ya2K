@@ -368,4 +368,63 @@ export const dictionaryEn: Record<string, string> = {
   'loading.voucherValidator': 'Starting Voucher Validator...',
   'loading.specialVoucher': 'Loading Special Voucher...',
   'loading.recycleBin': 'Opening Recycle Bin...',
+
+  // Interactive BT21 Guide (TATA & COOKY)
+  'guide.windowTitle': 'ECOS 98 — BT21 Guide',
+  'guide.badgeTata': 'TATA (V)',
+  'guide.badgeCooky': 'COOKY (JK)',
+  'guide.stepOf': 'Step {current} of {total}',
+  'guide.prev': '◀ Back',
+  'guide.next': 'Next ▶',
+  'guide.finish': 'Start Exploring! 💜',
+  'guide.close': 'Close',
+  'guide.minimize': 'Minimize',
+  'guide.restore': 'Open Guide',
+  'guide.trayButton': 'BT21 Guide',
+  'guide.trayTooltip': 'Open ECOS 98 Guide with TATA and COOKY',
+  'guide.startMenuTitle': 'System Guide (BT21)',
+  'guide.miniBubble': 'Click to open the guide! 💜',
+  'guide.openMyComputer': '📂 Open My Computer',
+  'guide.openVouchers': '🎟️ Open Validator',
+  'guide.openOurLove': '📷 Open Our Love',
+  'guide.openComments': '💌 Open <3',
+  'guide.openMusic': '🎵 Open Music Player',
+  'guide.openGames': '🎮 Open Games',
+  'guide.openRecycleBin': '🗑️ Open Recycle Bin',
+
+  'guide.step0.title': 'Welcome to ECOS 98!',
+  'guide.step0.text': 'Annyeong, Yaczury! ✨ I am TATA, I traveled from very far away to be your guide in this retro universe. Jandy built this entire 1998 operating system... just for you! 🪐',
+
+  'guide.step1.title': 'How to explore the system',
+  'guide.step1.text': 'Hello Yaczury! Every icon on this desktop holds memories, laughs, and surprises. Double-click any folder to open it, or drag windows just like on a classic PC.',
+
+  'guide.step2.title': 'My Computer & Validator',
+  'guide.step2.text': 'Inside My Computer you will find system drives and the direct shortcut to the Voucher Validator! 🎟️ There you can redeem the physical gifts Jandy gave you!',
+
+  'guide.step3.title': 'The 18 Secret Vouchers',
+  'guide.step3.text': 'Did you see the 18 physical vouchers Jandy personally gave you? On the back of each one is a secret 10-digit code. Enter them here to redeem them one by one!',
+
+  'guide.step4.title': 'Special Unlockable Prize!',
+  'guide.step4.text': 'Every valid voucher moves your progress bar forward. And once you reach 18/18... pssst! A special digital Voucher will unlock with a secret surprise to scratch off with your cursor. ✨',
+
+  'guide.step5.title': 'Our Love (Photo Album)',
+  'guide.step5.text': 'My favorite folder! 📷 Here are your memories together arranged year by year, month by month: from that first sneaky date with McDonald\'s to walks along the Walled City in Cartagena.',
+
+  'guide.step6.title': 'The Closing Poem',
+  'guide.step6.text': 'Be sure to reach the very last photo of 2026 in Our Love... Jandy wrote a heartfelt dedication and a poem by Gustavo Adolfo Bécquer that will touch your soul. 🌹',
+
+  'guide.step7.title': 'Memory Capsule <3',
+  'guide.step7.text': 'This heart-shaped folder <3 is a sweet nostalgic gallery. Candid photos, cute gestures, and notes capturing the essence of what you are together.',
+
+  'guide.step8.title': 'If love were songs',
+  'guide.step8.text': 'Music time! 🎶 This folder opens classic Windows Media Player 98, with songs dedicated to you. But to enter you need a secret password... Think of what connects you two most! 🔐',
+
+  'guide.step9.title': 'Classic Games',
+  'guide.step9.text': 'Game time! 🎮 Jandy included the 4 most iconic games of a generation: Minesweeper, classic Solitaire, legendary 3D Pinball, and nostalgic Purble Place. Complete with authentic retro sounds!',
+
+  'guide.step10.title': 'The Forbidden Recycle Bin',
+  'guide.step10.text': 'Dare to check the Recycle Bin? 👀 Jandy left four un-deletable files: doubts, urge to stop seeing you, reasons not to love you, and pouts. Try clicking \'Empty Recycle Bin\' to see what the system says! 😉',
+
+  'guide.step11.title': 'Borahae, Yaczury! 💜',
+  'guide.step11.text': 'We hope you enjoy every corner of ECOS 98, Yaczury. In the Start button you can switch language between Spanish and English. Everything was handmade with all of Jandy\'s love for you! 💜 보라해',
 };

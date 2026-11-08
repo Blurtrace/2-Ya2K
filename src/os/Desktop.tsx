@@ -116,6 +116,11 @@ const RecycleBinExplorer = dynamic(
   }
 );
 
+const GuideAssistant = dynamic(
+  () => import('@/guide/GuideAssistant').then((mod) => mod.GuideAssistant),
+  { ssr: false }
+);
+
 /**
  * Componente principal del Escritorio de Windows 98 / ECOS.
  * Administra el fondo teal, los iconos en rejilla vertical, las ventanas abiertas,
@@ -304,6 +309,9 @@ export const Desktop = () => {
 
       {/* Diálogo modal (MessageBox) */}
       {state.modal && <MessageBox modal={state.modal} />}
+
+      {/* Asistente Guía Retro BT21 (TATA & COOKY) */}
+      <GuideAssistant />
     </main>
   );
 };

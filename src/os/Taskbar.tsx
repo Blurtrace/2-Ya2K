@@ -111,6 +111,22 @@ export const Taskbar = () => {
 
       {/* Sección Derecha: Bandeja del sistema (Tray) */}
       <div className="win-sunken bg-[#C0C0C0] h-[22px] px-2 flex items-center space-x-2 text-[11px] flex-shrink-0">
+        {/* Acceso a Guía BT21 */}
+        <button
+          type="button"
+          onClick={() => dispatch({ type: 'TOGGLE_GUIDE' })}
+          title={t('guide.trayTooltip')}
+          className="flex items-center space-x-1 px-1 py-0.5 hover:bg-[#000080] hover:text-white cursor-pointer border border-transparent hover:border-[#808080] select-none group"
+        >
+          <span className="text-[12px] leading-none">💜</span>
+          <span className="font-bold text-[10px] hidden sm:inline leading-none text-black group-hover:text-white">
+            {t('guide.trayButton')}
+          </span>
+        </button>
+
+        {/* Separador sutil */}
+        <div className="h-3 w-[1px] bg-[#808080]" />
+
         {/* Selector de idioma ES / EN */}
         <button
           type="button"
