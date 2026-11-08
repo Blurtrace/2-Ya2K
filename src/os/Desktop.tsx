@@ -1,19 +1,84 @@
 'use client';
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useOs } from './state/OsContext';
 import { getDesktopFolders, findFolderById } from '@/folders/registry';
 import { DesktopIcon } from './DesktopIcon';
 import { Window } from './Window';
 import { FolderExplorer } from './FolderExplorer';
 import { FolderStub } from './FolderStub';
-import { GamesExplorer } from '@/folders/Games/GamesExplorer';
-import { TimelineAlbum } from '@/folders/Comments/TimelineAlbum';
-import { MusicPlayerApp } from '@/folders/IfLoveWereSongs/MusicPlayerApp';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { ContextMenu } from './ContextMenu';
 import { MessageBox } from './MessageBox';
+
+/** Fallback retro para carga diferida de ventanas */
+const WindowLoadingFallback = ({ message }: { message: string }) => (
+  <div className="w-full h-full min-h-[160px] flex items-center justify-center bg-[#C0C0C0] p-4 text-xs font-mono text-black select-none">
+    <div className="flex items-center space-x-2 win-sunken p-3 bg-white border border-[#808080]">
+      <span className="inline-block animate-pulse">⏳</span>
+      <span>{message}</span>
+    </div>
+  </div>
+);
+
+// Code-splitting dinámico (Fase 1 de Rendimiento)
+const GamesExplorer = dynamic(
+  () => import('@/folders/Games/GamesExplorer').then((mod) => mod.GamesExplorer),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Iniciando Juegos Clásicos..." />,
+  }
+);
+
+const TimelineAlbum = dynamic(
+  () => import('@/folders/Comments/TimelineAlbum').then((mod) => mod.TimelineAlbum),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Abriendo Álbum de Recuerdos..." />,
+  }
+);
+
+const MusicPlayerApp = dynamic(
+  () => import('@/folders/IfLoveWereSongs/MusicPlayerApp').then((mod) => mod.MusicPlayerApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Cargando Reproductor..." />,
+  }
+);
+
+const MinesweeperApp = dynamic(
+  () => import('@/folders/Minesweeper/MinesweeperApp').then((mod) => mod.MinesweeperApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Iniciando Buscaminas..." />,
+  }
+);
+
+const SolitaireApp = dynamic(
+  () => import('@/folders/Solitaire/SolitaireApp').then((mod) => mod.SolitaireApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Iniciando Solitario..." />,
+  }
+);
+
+const PinballApp = dynamic(
+  () => import('@/folders/Pinball/PinballApp').then((mod) => mod.PinballApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Iniciando 3D Pinball: Space Cadet..." />,
+  }
+);
+
+const PurblePlaceApp = dynamic(
+  () => import('@/folders/PurblePlace/PurblePlaceApp').then((mod) => mod.PurblePlaceApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback message="Iniciando Purble Place..." />,
+  }
+);
 
 /**
  * Componente principal del Escritorio de Windows 98 / ECOS.
@@ -32,6 +97,17 @@ export const Desktop = () => {
   };
 
   const handleContextMenu = (e: React.MouseEvent) => {
+    // Si el clic derecho ocurrió dentro de una ventana, diálogo modal o barra de tareas, ignorar
+    const target = e.target as HTMLElement | null;
+    if (
+      target?.closest('[role="dialog"]') ||
+      target?.closest('footer') ||
+      target?.closest('[role="menu"]')
+    ) {
+      e.preventDefault();
+      return;
+    }
+
     e.preventDefault();
     dispatch({
       type: 'OPEN_CONTEXT_MENU',
@@ -80,6 +156,14 @@ export const Desktop = () => {
               <TimelineAlbum />
             ) : win.id === 'if-love-were-songs' ? (
               <MusicPlayerApp />
+            ) : win.id === 'minesweeper' ? (
+              <MinesweeperApp />
+            ) : win.id === 'solitaire' ? (
+              <SolitaireApp />
+            ) : win.id === 'pinball' ? (
+              <PinballApp />
+            ) : win.id === 'purble-place' ? (
+              <PurblePlaceApp />
             ) : folder.children && folder.children.length > 0 ? (
               <FolderExplorer folder={folder} />
             ) : (

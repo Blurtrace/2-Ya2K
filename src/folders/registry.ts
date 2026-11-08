@@ -6,6 +6,18 @@ import type { FolderDef } from '@/os/state/types';
  */
 export const folders: FolderDef[] = [
   {
+    id: 'my-computer',
+    nameKey: 'folder.myComputer',            // "Mi PC" / "My Computer"
+    icon: '/icons/my-computer.png',
+    status: 'planned',                       // Stub inicial - icono mítico de Windows 98
+  },
+  {
+    id: 'recycle-bin',
+    nameKey: 'folder.recycleBin',            // "Papelera" / "Recycle Bin"
+    icon: '/icons/recycle-bin.png',
+    status: 'planned',                       // Stub inicial - icono mítico de Windows 98
+  },
+  {
     id: 'games',
     nameKey: 'folder.games',                 // "Juegos" / "Games"
     icon: '/icons/folder-games.png',
@@ -28,6 +40,30 @@ export const folders: FolderDef[] = [
     nameKey: 'folder.ourLove',               // "Nuestro Amor" / "Our Love"
     icon: '/icons/folder-love.png',
     status: 'planned',                       // Stub
+  },
+  {
+    id: 'minesweeper',
+    nameKey: 'app.minesweeper',              // "Buscaminas" / "Minesweeper"
+    icon: '/icons/minesweeper.png',
+    status: 'ready',                         // Juego nativo Windows 98
+  },
+  {
+    id: 'solitaire',
+    nameKey: 'app.solitaire',                // "Solitario" / "Solitaire"
+    icon: '/icons/solitaire.png',
+    status: 'ready',                         // Juego nativo Windows 98
+  },
+  {
+    id: 'pinball',
+    nameKey: 'app.pinball',                  // "3D Pinball" / "3D Pinball"
+    icon: '/icons/pinball.png',
+    status: 'ready',                         // Motor original WebAssembly
+  },
+  {
+    id: 'purble-place',
+    nameKey: 'app.purblePlace',              // "Purble Place" / "Purble Place"
+    icon: '/icons/purble-place.png',
+    status: 'ready',                         // Versión web con los 3 minijuegos
   },
 ];
 

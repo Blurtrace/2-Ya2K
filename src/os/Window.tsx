@@ -71,13 +71,15 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
 
   const folderTitle =
     folderDef.id === 'if-love-were-songs'
-      ? 'Windows Media Player - If love were songs ♡'
+      ? `Windows Media Player - ${t(folderDef.nameKey)} ♡`
       : t(folderDef.nameKey);
 
   // Si está minimizada, no se dibuja en pantalla (pero vive en la barra de tareas)
   if (windowState.minimized) {
     return null;
   }
+
+  const isAutoFit = folderDef.id === 'minesweeper';
 
   // Estilos de posición (absoluta fija si maximizada, o en coordenadas x/y)
   const windowStyle: React.CSSProperties = isMaximized
@@ -93,8 +95,10 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
         position: 'absolute',
         top: `${windowState.y}px`,
         left: `${windowState.x}px`,
-        width: `${windowState.width}px`,
-        height: `${windowState.height}px`,
+        width: isAutoFit ? 'fit-content' : `${windowState.width}px`,
+        height: isAutoFit ? 'fit-content' : `${windowState.height}px`,
+        maxWidth: 'calc(100vw - 12px)',
+        maxHeight: 'calc(100vh - 36px)',
         zIndex: windowState.zIndex,
       };
 
@@ -103,15 +107,22 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
       role="dialog"
       aria-label={folderTitle}
       onClick={handleWindowClick}
+      onContextMenu={(e) => {
+        // Bloquear completamente el menú contextual (ni el del escritorio ni el del navegador)
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       style={windowStyle}
-      className="win-raised bg-[#C0C0C0] p-[3px] flex flex-col select-none overflow-hidden"
+      className={`win-raised bg-[#C0C0C0] p-[3px] flex flex-col select-none ${
+        isAutoFit ? 'w-fit h-fit' : 'overflow-hidden'
+      }`}
     >
       {/* Barra de título con degradado y arrastre */}
       <header
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
-        onDoubleClick={handleToggleMaximize}
+        onDoubleClick={isAutoFit ? undefined : handleToggleMaximize}
         className={`flex items-center justify-between px-1 py-[2px] cursor-default ${
           isActive ? 'win-titlebar-active' : 'win-titlebar-inactive'
         }`}
@@ -151,7 +162,7 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
           <button
             type="button"
             onClick={handleToggleMaximize}
-            disabled={isMobile}
+            disabled={isMobile || isAutoFit}
             aria-label={isMaximized ? t('window.restore') : t('window.maximize')}
             className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center leading-none disabled:opacity-50 cursor-pointer"
           >
@@ -171,7 +182,7 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
       </header>
 
       {/* Área de contenido de la ventana */}
-      <div className="flex-1 min-h-0 flex flex-col mt-[2px] overflow-hidden">
+      <div className={isAutoFit ? 'flex flex-col mt-[2px]' : 'flex-1 min-h-0 flex flex-col mt-[2px] overflow-hidden'}>
         {children}
       </div>
     </section>

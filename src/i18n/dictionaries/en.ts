@@ -4,11 +4,17 @@
  */
 export const dictionaryEn: Record<string, string> = {
   // Folder names
+  'folder.myComputer': 'My Computer',
+  'folder.recycleBin': 'Recycle Bin',
   'folder.bankOfMemories': 'BANK OF MEMORIES',
   'folder.games': 'Games',
   'folder.ifLoveWereSongs': 'If love were songs',
   'folder.comments': '<3',
   'folder.ourLove': 'Our Love',
+  'app.minesweeper': 'Minesweeper',
+  'app.solitaire': 'Solitaire',
+  'app.pinball': '3D Pinball',
+  'app.purblePlace': 'Purble Place',
   'folder.underConstruction': 'This folder is under construction.',
   'folder.back': 'Back',
   'folder.itemsCount': '{count} item(s)',
@@ -42,7 +48,7 @@ export const dictionaryEn: Record<string, string> = {
   'dialog.cancel': 'Cancel',
   'dialog.close': 'Close',
   'dialog.aboutTitle': 'About ECOS',
-  'dialog.aboutText': 'ECOS — Windows 98 / Y2K Web Operating System. Built with strict functional architecture (no OOP) in Next.js and TailwindCSS.',
+  'dialog.aboutText': 'ECOS — Windows 98 / Y2K Web Operating System. ECOS is a box of memories, dedications, and fun.',
   'dialog.shutdownTitle': 'Shut Down System',
   'dialog.shutdownJoke': 'It is now safe to turn off your computer.',
   'dialog.n8nWarningTitle': 'n8n Connection',

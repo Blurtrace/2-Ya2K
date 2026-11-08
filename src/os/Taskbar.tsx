@@ -40,28 +40,31 @@ export const Taskbar = () => {
 
   return (
     <footer
-      role="region"
       aria-label="Taskbar"
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       className="fixed bottom-0 left-0 right-0 h-[28px] win-raised bg-[#C0C0C0] z-[9990] flex items-center justify-between px-1 select-none"
     >
       {/* Sección Izquierda: Botón Inicio y Botones de Ventanas */}
       <div className="flex items-center space-x-1.5 flex-1 min-w-0 mr-1 overflow-hidden h-full py-[2px]">
-        {/* Botón Inicio */}
+        {/* Botón Inicio con área táctil accesible WCAG 2.2 (28px de altura mediante pseudo-elemento invisible) */}
         <button
           id="taskbar-start-button"
           type="button"
           onClick={handleStartClick}
-          className={`h-[22px] px-1.5 flex items-center space-x-1 font-bold text-[11px] cursor-pointer select-none ${
+          className={`relative h-[22px] px-1.5 flex items-center space-x-1 font-bold text-[11px] cursor-pointer select-none before:content-[''] before:absolute before:-inset-y-[3px] before:-inset-x-0.5 before:z-10 ${
             state.startMenuOpen ? 'win-pressed font-extrabold' : 'win-button'
           }`}
           aria-expanded={state.startMenuOpen}
         >
           <Image
-            src="/icons/ecos-logo.png"
+            src="/icons/win-start.png"
             alt=""
             width={16}
             height={16}
-            className="pixelated w-4 h-4 flex-shrink-0"
+            className="w-4 h-4 flex-shrink-0 object-contain select-none pointer-events-none"
           />
           <span className="leading-none text-black">{t('taskbar.start')}</span>
         </button>

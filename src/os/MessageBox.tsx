@@ -55,6 +55,10 @@ export const MessageBox = ({ modal }: MessageBoxProps) => {
       role="dialog"
       aria-modal="true"
       aria-label={t(modal.titleKey)}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/10 select-none"
     >
       <div className="win-raised bg-[#C0C0C0] p-[3px] w-full max-w-[360px] shadow-none">

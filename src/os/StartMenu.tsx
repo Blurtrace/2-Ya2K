@@ -84,12 +84,16 @@ export const StartMenu = ({ isOpen }: StartMenuProps) => {
   return (
     <div
       ref={menuRef}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
       className="fixed bottom-[28px] left-0 z-[9995] win-raised bg-[#C0C0C0] p-[2px] flex select-none text-black"
     >
-      {/* Barra lateral vertical azul marino con texto "ECOS" */}
-      <div className="w-6 bg-gradient-to-t from-[#000080] to-[#1084D0] flex flex-col justify-end items-center pb-2 select-none">
+      {/* Barra lateral vertical azul marino con texto "ECOS 98" (sin desbordamiento) */}
+      <div className="w-7 bg-gradient-to-t from-[#000080] to-[#1084D0] flex flex-col justify-end items-center pb-3 select-none flex-shrink-0">
         <span
-          className="text-white font-bold text-[13px] tracking-widest uppercase origin-bottom -rotate-90 whitespace-nowrap mb-6"
+          className="text-white font-bold text-[13px] tracking-widest uppercase [writing-mode:vertical-rl] rotate-180 whitespace-nowrap mb-2 select-none"
           style={{ textShadow: '1px 1px 0px #000' }}
         >
           ECOS 98

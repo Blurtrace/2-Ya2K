@@ -69,7 +69,8 @@ export const DesktopIcon = ({ folder, isSelected, onSelect, onOpen }: DesktopIco
       <div className="relative w-8 h-8 flex items-center justify-center">
         <Image
           src={folder.icon}
-          alt={folderName}
+          alt=""
+          aria-hidden="true"
           width={32}
           height={32}
           className="pointer-events-none select-none pixelated"

@@ -4,11 +4,17 @@
  */
 export const dictionaryEs: Record<string, string> = {
   // Nombres de carpeta traducidos en español
+  'folder.myComputer': 'Mi PC',
+  'folder.recycleBin': 'Papelera',
   'folder.bankOfMemories': 'BANCO DE RECUERDOS',
   'folder.games': 'Juegos',
-  'folder.ifLoveWereSongs': 'If love were songs',
+  'folder.ifLoveWereSongs': 'Si el amor fuera canciones',
   'folder.comments': '<3',
   'folder.ourLove': 'Nuestro Amor',
+  'app.minesweeper': 'Buscaminas',
+  'app.solitaire': 'Solitario',
+  'app.pinball': '3D Pinball',
+  'app.purblePlace': 'Purble Place',
   'folder.underConstruction': 'Esta carpeta está en construcción.',
   'folder.back': 'Atrás',
   'folder.itemsCount': '{count} objeto(s)',
@@ -42,7 +48,7 @@ export const dictionaryEs: Record<string, string> = {
   'dialog.cancel': 'Cancelar',
   'dialog.close': 'Cerrar',
   'dialog.aboutTitle': 'Acerca de ECOS',
-  'dialog.aboutText': 'ECOS — Escritorio Web Windows 98 / Estética Y2K. Construido con arquitectura funcional estricta (sin POO) en Next.js y TailwindCSS.',
+  'dialog.aboutText': 'ECOS — Escritorio Web Windows 98 / Estética Y2K. ECOS es una caja de recuerdos, dedicatorias y diversión.',
   'dialog.shutdownTitle': 'Apagar el sistema',
   'dialog.shutdownJoke': 'Ahora es seguro apagar su equipo.',
   'dialog.n8nWarningTitle': 'Conexión n8n',
