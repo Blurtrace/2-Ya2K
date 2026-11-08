@@ -42,6 +42,9 @@ export const dictionaryEs: Record<string, string> = {
 
   // Menú contextual del escritorio
   'context.arrangeIcons': 'Organizar iconos',
+  'context.byName': 'Por nombre',
+  'context.byType': 'Por tipo',
+  'context.byDefault': 'Predeterminado',
   'context.refresh': 'Actualizar',
   'context.properties': 'Propiedades',
 

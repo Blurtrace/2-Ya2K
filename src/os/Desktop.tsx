@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useOs } from './state/OsContext';
 import { getDesktopFolders, findFolderById } from '@/folders/registry';
@@ -115,7 +115,54 @@ const SpecialVoucherView = dynamic(
  */
 export const Desktop = () => {
   const { state, dispatch } = useOs();
-  const desktopFolders = getDesktopFolders();
+  const { lang, t } = useT();
+
+  // 1. Manejo del atajo retro F5 en el escritorio
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'F5') {
+        e.preventDefault();
+        dispatch({ type: 'START_REFRESH' });
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [dispatch]);
+
+  // 2. Temporizador para finalizar el refresco retro
+  useEffect(() => {
+    if (state.isRefreshing) {
+      const timer = setTimeout(() => {
+        dispatch({ type: 'END_REFRESH' });
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [state.isRefreshing, dispatch]);
+
+  // 3. Ordenamiento dinámico de los iconos del escritorio
+  const desktopFolders = useMemo(() => {
+    const raw = getDesktopFolders();
+    if (state.iconSortOrder === 'name') {
+      return [...raw].sort((a, b) =>
+        t(a.nameKey).localeCompare(t(b.nameKey), lang)
+      );
+    }
+    if (state.iconSortOrder === 'type') {
+      const getCategoryScore = (id: string) => {
+        if (id === 'my-computer' || id === 'recycle-bin') return 1; // Sistema
+        if (id === 'comments' || id === 'our-love') return 2;       // Recuerdos
+        if (id === 'if-love-were-songs') return 3;                  // Música
+        if (id === 'games') return 4;                               // Carpeta Juegos
+        return 5;                                                   // Juegos clásicos individuales
+      };
+      return [...raw].sort((a, b) => {
+        const catDiff = getCategoryScore(a.id) - getCategoryScore(b.id);
+        if (catDiff !== 0) return catDiff;
+        return t(a.nameKey).localeCompare(t(b.nameKey), lang);
+      });
+    }
+    return raw;
+  }, [state.iconSortOrder, lang, t]);
 
   const handleDesktopClick = () => {
     // Clic en el fondo deselecciona iconos y cierra menús
@@ -156,10 +203,17 @@ export const Desktop = () => {
     <main
       onClick={handleDesktopClick}
       onContextMenu={handleContextMenu}
-      className="relative w-screen h-screen overflow-hidden bg-[#008080] select-none text-black"
+      className={`relative w-screen h-screen overflow-hidden bg-[#008080] select-none text-black ${
+        state.isRefreshing ? 'cursor-wait' : ''
+      }`}
+      style={state.isRefreshing ? { cursor: 'url(/icons/hourglass.png), wait' } : undefined}
     >
-      {/* Rejilla vertical de iconos en el escritorio (arriba a la izquierda) */}
-      <div className="absolute top-2 left-2 flex flex-col flex-wrap gap-2 max-h-[calc(100vh-40px)] z-0 content-start">
+      {/* Rejilla vertical de iconos en el escritorio con parpadeo al actualizar */}
+      <div
+        className={`absolute top-2 left-2 flex flex-col flex-wrap gap-2 max-h-[calc(100vh-40px)] z-0 content-start transition-opacity duration-150 ${
+          state.isRefreshing ? 'opacity-20' : 'opacity-100'
+        }`}
+      >
         {desktopFolders.map((folder) => (
           <DesktopIcon
             key={folder.id}

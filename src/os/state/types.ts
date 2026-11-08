@@ -50,6 +50,8 @@ export type ContextMenuState = {
   y: number;
 };
 
+export type IconSortOrder = 'default' | 'name' | 'type';
+
 /**
  * Estado global inmutable del sistema operativo ECOS.
  */
@@ -61,6 +63,8 @@ export type OsState = {
   nextZ: number;
   modal: ModalState | null;
   contextMenu: ContextMenuState | null;
+  iconSortOrder: IconSortOrder;
+  isRefreshing: boolean;
 };
 
 /**
@@ -79,5 +83,8 @@ export type OsAction =
   | { type: 'OPEN_CONTEXT_MENU'; x: number; y: number }
   | { type: 'CLOSE_CONTEXT_MENU' }
   | { type: 'SHOW_MODAL'; modal: Omit<ModalState, 'isOpen'> }
-  | { type: 'CLOSE_MODAL' };
+  | { type: 'CLOSE_MODAL' }
+  | { type: 'SET_ICON_SORT'; order: IconSortOrder }
+  | { type: 'START_REFRESH' }
+  | { type: 'END_REFRESH' };
 

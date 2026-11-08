@@ -42,6 +42,9 @@ export const dictionaryEn: Record<string, string> = {
 
   // Desktop Context Menu
   'context.arrangeIcons': 'Arrange Icons',
+  'context.byName': 'By Name',
+  'context.byType': 'By Type',
+  'context.byDefault': 'Default Order',
   'context.refresh': 'Refresh',
   'context.properties': 'Properties',
 

@@ -8,6 +8,8 @@ export const initialOsState: OsState = {
   nextZ: 10,
   modal: null,
   contextMenu: null,
+  iconSortOrder: 'default',
+  isRefreshing: false,
 };
 
 /**
@@ -246,6 +248,31 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       return {
         ...state,
         modal: null,
+      };
+    }
+
+    case 'SET_ICON_SORT': {
+      return {
+        ...state,
+        iconSortOrder: action.order,
+        contextMenu: null,
+      };
+    }
+
+    case 'START_REFRESH': {
+      return {
+        ...state,
+        isRefreshing: true,
+        selectedIconId: null,
+        startMenuOpen: false,
+        contextMenu: null,
+      };
+    }
+
+    case 'END_REFRESH': {
+      return {
+        ...state,
+        isRefreshing: false,
       };
     }
 
