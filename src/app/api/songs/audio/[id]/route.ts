@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import path from 'path';
-import fs from 'fs';
-import { Readable } from 'stream';
 import { COOKIE_NAME, verifySessionToken } from '@/server/authConfig';
 
 const AUDIO_FILES_MAP: Record<string, string> = {
@@ -66,59 +64,11 @@ export async function GET(
       return new NextResponse('Canción no encontrada.', { status: 404 });
     }
 
-    const filePath = path.join(process.cwd(), 'src', 'server', 'songs', 'audio', fileName);
-    if (!fs.existsSync(filePath)) {
-      return new NextResponse('Archivo de audio no disponible en el servidor.', {
-        status: 404,
-      });
-    }
-
-    const stat = fs.statSync(filePath);
-    const fileSize = stat.size;
-    const range = request.headers.get('range');
-
-    // 3. Soporte para streaming con cabeceras HTTP Range (necesario para audio interactivo)
-    if (range) {
-      const parts = range.replace(/bytes=/, '').split('-');
-      const start = parseInt(parts[0], 10);
-      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-
-      if (start >= fileSize || end >= fileSize) {
-        return new NextResponse(null, {
-          status: 416,
-          headers: { 'Content-Range': `bytes */${fileSize}` },
-        });
-      }
-
-      const chunkSize = end - start + 1;
-      const fileStream = fs.createReadStream(filePath, { start, end });
-      const webStream = Readable.toWeb(fileStream);
-
-      return new NextResponse(webStream as ReadableStream, {
-        status: 206,
-        headers: {
-          'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-          'Accept-Ranges': 'bytes',
-          'Content-Length': chunkSize.toString(),
-          'Content-Type': 'audio/mpeg',
-          'Cache-Control': 'private, no-cache, no-store, must-revalidate',
-        },
-      });
-    }
-
-    // Solicitud estándar sin rango
-    const fileStream = fs.createReadStream(filePath);
-    const webStream = Readable.toWeb(fileStream);
-
-    return new NextResponse(webStream as ReadableStream, {
-      status: 200,
-      headers: {
-        'Accept-Ranges': 'bytes',
-        'Content-Length': fileSize.toString(),
-        'Content-Type': 'audio/mpeg',
-        'Cache-Control': 'private, no-cache, no-store, must-revalidate',
-      },
-    });
+    // 3. Redirección al recurso de audio en public/songs/audio/ servido por Vercel CDN
+    // Protegido por sesión: si no está autenticado, la validación previa devuelve 401.
+    // Al redirigir, Vercel CDN gestiona el streaming con soporte nativo HTTP 206 (Range)
+    // eliminando por completo cualquier restricción de tamaño en funciones Serverless (50 MB).
+    return NextResponse.redirect(new URL(`/songs/audio/${fileName}`, request.url));
   } catch {
     return new NextResponse('Error interno al servir audio.', { status: 500 });
   }
