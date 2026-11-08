@@ -44,6 +44,14 @@ const TimelineAlbum = dynamic(
   }
 );
 
+const OurLoveAlbum = dynamic(
+  () => import('@/folders/OurLove/OurLoveAlbum').then((mod) => mod.OurLoveAlbum),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback messageKey="loading.ourLove" />,
+  }
+);
+
 const MusicPlayerApp = dynamic(
   () => import('@/folders/IfLoveWereSongs/MusicPlayerApp').then((mod) => mod.MusicPlayerApp),
   {
@@ -158,6 +166,8 @@ export const Desktop = () => {
               <GamesExplorer />
             ) : win.id === 'comments' ? (
               <TimelineAlbum />
+            ) : win.id === 'our-love' ? (
+              <OurLoveAlbum />
             ) : win.id === 'if-love-were-songs' ? (
               <MusicPlayerApp />
             ) : win.id === 'minesweeper' ? (

@@ -42,19 +42,20 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
 
       const isGames = action.id === 'games';
       const isComments = action.id === 'comments';
+      const isOurLove = action.id === 'our-love';
       const isSongs = action.id === 'if-love-were-songs';
       const isMinesweeper = action.id === 'minesweeper';
       const isSolitaire = action.id === 'solitaire';
       const isPinball = action.id === 'pinball';
       const isPurblePlace = action.id === 'purble-place';
-      const isLarge = isGames || isComments || isSongs || isSolitaire || isPinball || isPurblePlace;
+      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace;
 
       const newWindow: WindowState = {
         id: action.id,
         x: isLarge ? Math.max(16, offsetX - 30) : isMinesweeper ? Math.max(100, offsetX) : offsetX,
         y: isLarge ? 16 : isMinesweeper ? 60 : offsetY,
-        width: isComments ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isPinball ? 640 : isSolitaire ? 680 : isMinesweeper ? 212 : 440,
-        height: isComments ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isPinball ? 540 : isSolitaire ? 520 : isMinesweeper ? 305 : 300,
+        width: (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isPinball ? 640 : isSolitaire ? 680 : isMinesweeper ? 212 : 440,
+        height: (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isPinball ? 540 : isSolitaire ? 520 : isMinesweeper ? 305 : 300,
         zIndex: nextZ,
         minimized: false,
         maximized: false,

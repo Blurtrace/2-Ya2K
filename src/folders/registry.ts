@@ -39,7 +39,7 @@ export const folders: FolderDef[] = [
     id: 'our-love',
     nameKey: 'folder.ourLove',               // "Nuestro Amor" / "Our Love"
     icon: '/icons/folder-love.png',
-    status: 'planned',                       // Stub
+    status: 'ready',                         // Álbum de fotos cronológico de Nuestro Amor
   },
   {
     id: 'minesweeper',
