@@ -20,7 +20,11 @@ export const SpecialVoucherView = () => {
     const current = getLocalVoucherState();
     if (!current.prizeData && current.isSpecialUnlocked) {
       setIsLoadingPrize(true);
-      fetch('/api/vouchers/prize')
+      fetch('/api/vouchers/prize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentRedeemed: current.redeemedVouchers }),
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.success && data.prize) {

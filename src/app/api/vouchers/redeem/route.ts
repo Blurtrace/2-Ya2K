@@ -25,6 +25,7 @@ export async function POST(request: Request) {
 
     const body = await request.json().catch(() => ({}));
     const code = String(body.code || '').trim();
+    const currentRedeemed = Array.isArray(body.currentRedeemed) ? body.currentRedeemed : [];
 
     if (!code) {
       return NextResponse.json(
@@ -33,7 +34,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const result = await redeemVoucherCode(code);
+    const result = await redeemVoucherCode(code, currentRedeemed);
 
     if (!result.success) {
       recordVoucherFailedAttempt(ip);

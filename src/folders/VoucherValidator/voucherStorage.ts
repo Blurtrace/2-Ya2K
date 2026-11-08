@@ -119,12 +119,12 @@ export const saveLocalVoucherState = (partial: Partial<VoucherClientState>): Vou
 };
 
 /**
- * Inicializa y sincroniza el estado local con el backend Next.js.
+ * Inicializa y restaura el estado local independiente de este dispositivo (localStorage + IndexedDB).
  */
 export const initAndSyncVouchers = async (): Promise<VoucherClientState> => {
   let local = getLocalVoucherState();
 
-  // Intento de restaurar desde IndexedDB si localStorage fue borrado
+  // Intento de restaurar desde IndexedDB si localStorage fue borrado en este navegador
   if (local.redeemedVouchers.length === 0) {
     const fromIdb = await loadFromIndexedDB();
     if (fromIdb && fromIdb.redeemedVouchers.length > 0) {
@@ -132,41 +132,26 @@ export const initAndSyncVouchers = async (): Promise<VoucherClientState> => {
     }
   }
 
-  try {
-    const res = await fetch('/api/vouchers/sync', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ redeemedVouchers: local.redeemedVouchers }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      if (data.success && Array.isArray(data.redeemedVouchers)) {
-        const isAllCompleted = data.redeemedVouchers.length >= 18;
-        const updated = saveLocalVoucherState({
-          redeemedVouchers: data.redeemedVouchers,
-          isSpecialUnlocked: isAllCompleted || local.isSpecialUnlocked,
-        });
-
-        // Si están todos completos y aún no tenemos el premio, consultarlo
-        if (isAllCompleted && !updated.prizeData) {
-          const prizeRes = await fetch('/api/vouchers/prize');
-          if (prizeRes.ok) {
-            const prizeData = await prizeRes.json();
-            if (prizeData.success && prizeData.prize) {
-              return saveLocalVoucherState({
-                prizeData: prizeData.prize,
-                isSpecialUnlocked: true,
-              });
-            }
-          }
+  // Si este dispositivo ya completó los 18 canjes y aún no tiene el premio cargado, solicitarlo
+  if (local.redeemedVouchers.length >= 18 && !local.prizeData) {
+    try {
+      const prizeRes = await fetch('/api/vouchers/prize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentRedeemed: local.redeemedVouchers }),
+      });
+      if (prizeRes.ok) {
+        const prizeData = await prizeRes.json();
+        if (prizeData.success && prizeData.prize) {
+          local = saveLocalVoucherState({
+            prizeData: prizeData.prize,
+            isSpecialUnlocked: true,
+          });
         }
-
-        return updated;
       }
+    } catch {
+      // Servidor inalcanzable temporalmente
     }
-  } catch {
-    // Servidor inalcanzable temporalmente: confiar en estado local
   }
 
   return local;

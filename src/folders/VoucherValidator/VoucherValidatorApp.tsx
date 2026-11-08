@@ -67,7 +67,7 @@ export const VoucherValidatorApp = () => {
       const res = await fetch('/api/vouchers/validate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({ code, currentRedeemed: state.redeemedVouchers }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -99,7 +99,10 @@ export const VoucherValidatorApp = () => {
       const res = await fetch('/api/vouchers/redeem', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: pendingValidation.code }),
+        body: JSON.stringify({
+          code: pendingValidation.code,
+          currentRedeemed: state.redeemedVouchers,
+        }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -122,7 +125,11 @@ export const VoucherValidatorApp = () => {
 
         // Si se completaron los 18, solicitar premio y mostrar celebración
         if (isNowAllComplete) {
-          fetch('/api/vouchers/prize')
+          fetch('/api/vouchers/prize', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ currentRedeemed: nextRedeemed }),
+          })
             .then((r) => r.json())
             .then((pData) => {
               if (pData.success && pData.prize) {

@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
 // Registro secreto de los 18 códigos físicos de 10 dígitos y su número de voucher asignado
 const VALID_VOUCHERS: Record<string, string> = {
   '7531968433': '01',
@@ -24,6 +21,7 @@ const VALID_VOUCHERS: Record<string, string> = {
 };
 
 const TOTAL_VOUCHERS = Object.keys(VALID_VOUCHERS).length; // 18
+const ALL_VOUCHER_NUMBERS = new Set(Object.values(VALID_VOUCHERS));
 
 const SECRET_PRIZE = {
   title: 'VIAJE A SAN ANDRÉS ISLAS',
@@ -32,64 +30,7 @@ const SECRET_PRIZE = {
   redeemDateEn: 'November 25, 2027',
 };
 
-// Ruta del archivo de persistencia en disco
-const DATA_FILE_PATH = path.join(process.cwd(), 'src', 'server', 'data', 'voucher-progress.json');
-
-type PersistedState = {
-  redeemedVouchers: string[]; // Números de voucher canjeados, e.g. ['01', '03']
-  lastUpdated: string;
-};
-
-// Estado en memoria
-let inMemoryState: PersistedState = {
-  redeemedVouchers: [],
-  lastUpdated: new Date().toISOString(),
-};
-
-// Carga inicial segura del archivo
-try {
-  if (fs.existsSync(DATA_FILE_PATH)) {
-    const raw = fs.readFileSync(DATA_FILE_PATH, 'utf-8');
-    const parsed = JSON.parse(raw);
-    if (parsed && Array.isArray(parsed.redeemedVouchers)) {
-      inMemoryState = {
-        redeemedVouchers: Array.from(new Set(parsed.redeemedVouchers)),
-        lastUpdated: parsed.lastUpdated || new Date().toISOString(),
-      };
-    }
-  }
-} catch {
-  // Entorno sin acceso al filesystem o error de lectura: continuar con estado en memoria
-}
-
-// Guardado seguro en disco
-const persistState = () => {
-  try {
-    const dir = path.dirname(DATA_FILE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(DATA_FILE_PATH, JSON.stringify(inMemoryState, null, 2), 'utf-8');
-  } catch {
-    // Si el entorno es de solo lectura (serverless), el estado se mantiene en memoria
-  }
-};
-
-// Mutex simple para evitar canjes duplicados concurrentes
-let isProcessing = false;
-const withLock = async <T>(fn: () => Promise<T> | T): Promise<T> => {
-  while (isProcessing) {
-    await new Promise((resolve) => setTimeout(resolve, 50));
-  }
-  isProcessing = true;
-  try {
-    return await fn();
-  } finally {
-    isProcessing = false;
-  }
-};
-
-// Control de fuerza bruta por IP
+// Control de tasa de peticiones (anti fuerza bruta) por IP
 type AttemptRecord = {
   count: number;
   resetAt: number;
@@ -105,7 +46,7 @@ export const checkVoucherRateLimit = (ip: string): { allowed: boolean; retryAfte
     return { allowed: true };
   }
 
-  if (record.count >= 12) {
+  if (record.count >= 15) {
     const retryAfter = Math.ceil((record.resetAt - now) / 1000);
     return { allowed: false, retryAfter };
   }
@@ -124,10 +65,12 @@ export const recordVoucherFailedAttempt = (ip: string) => {
 };
 
 /**
- * Valida un código introducido sin canjearlo.
+ * Valida un código introducido verificando contra el progreso del dispositivo cliente.
+ * Cada dispositivo/navegador mantiene su propia sesión independiente.
  */
 export const validateVoucherCode = async (
-  rawCode: string
+  rawCode: string,
+  clientRedeemed: string[] = []
 ): Promise<{
   valid: boolean;
   status: 'valid' | 'already_redeemed' | 'invalid_format' | 'not_found';
@@ -153,7 +96,8 @@ export const validateVoucherCode = async (
     };
   }
 
-  if (inMemoryState.redeemedVouchers.includes(voucherNumber)) {
+  // Comprobar si ya fue canjeado en este dispositivo
+  if (Array.isArray(clientRedeemed) && clientRedeemed.includes(voucherNumber)) {
     return {
       valid: false,
       status: 'already_redeemed',
@@ -170,10 +114,11 @@ export const validateVoucherCode = async (
 };
 
 /**
- * Canjea un código de forma atómica y segura.
+ * Canjea un código para el dispositivo cliente.
  */
 export const redeemVoucherCode = async (
-  rawCode: string
+  rawCode: string,
+  clientRedeemed: string[] = []
 ): Promise<{
   success: boolean;
   status: 'redeemed' | 'already_redeemed' | 'not_found' | 'invalid_format' | 'valid';
@@ -183,104 +128,66 @@ export const redeemVoucherCode = async (
   isAllCompleted: boolean;
   error?: string;
 }> => {
-  return withLock(async () => {
-    const validation = await validateVoucherCode(rawCode);
+  const validation = await validateVoucherCode(rawCode, clientRedeemed);
 
-    if (!validation.valid) {
-      return {
-        success: false,
-        status: validation.status,
-        voucherNumber: validation.voucherNumber,
-        redeemedCount: inMemoryState.redeemedVouchers.length,
-        totalVouchers: TOTAL_VOUCHERS,
-        isAllCompleted: inMemoryState.redeemedVouchers.length >= TOTAL_VOUCHERS,
-        error: validation.error,
-      };
-    }
-
-    const vNum = validation.voucherNumber!;
-    if (!inMemoryState.redeemedVouchers.includes(vNum)) {
-      inMemoryState.redeemedVouchers.push(vNum);
-      inMemoryState.redeemedVouchers.sort((a, b) => Number(a) - Number(b));
-      inMemoryState.lastUpdated = new Date().toISOString();
-      persistState();
-    }
-
-    const count = inMemoryState.redeemedVouchers.length;
-    const isAllCompleted = count >= TOTAL_VOUCHERS;
-
+  if (!validation.valid) {
+    const currentCount = Array.isArray(clientRedeemed) ? clientRedeemed.length : 0;
     return {
-      success: true,
-      status: 'redeemed',
-      voucherNumber: vNum,
-      redeemedCount: count,
+      success: false,
+      status: validation.status,
+      voucherNumber: validation.voucherNumber,
+      redeemedCount: currentCount,
       totalVouchers: TOTAL_VOUCHERS,
-      isAllCompleted,
+      isAllCompleted: currentCount >= TOTAL_VOUCHERS,
+      error: validation.error,
     };
-  });
-};
+  }
 
-/**
- * Consulta el estado general de progreso (sin exponer códigos ni premios).
- */
-export const getVoucherStatus = (): {
-  redeemedCount: number;
-  totalVouchers: number;
-  redeemedVouchers: string[];
-  isAllCompleted: boolean;
-} => {
-  const count = inMemoryState.redeemedVouchers.length;
+  const vNum = validation.voucherNumber!;
+  const nextSet = new Set(Array.isArray(clientRedeemed) ? clientRedeemed : []);
+  nextSet.add(vNum);
+
+  const nextCount = nextSet.size;
+  const isAllCompleted = nextCount >= TOTAL_VOUCHERS;
+
   return {
-    redeemedCount: count,
+    success: true,
+    status: 'redeemed',
+    voucherNumber: vNum,
+    redeemedCount: nextCount,
     totalVouchers: TOTAL_VOUCHERS,
-    redeemedVouchers: [...inMemoryState.redeemedVouchers],
-    isAllCompleted: count >= TOTAL_VOUCHERS,
+    isAllCompleted,
   };
 };
 
 /**
- * Sincroniza el estado del cliente con el servidor (fusión de conjuntos).
+ * Obtiene los datos del premio secreto ÚNICAMENTE cuando el dispositivo cliente
+ * acredita haber canjeado los 18 vouchers válidos.
  */
-export const syncVoucherState = (
-  clientRedeemedVouchers: string[]
+export const getSpecialPrizeForClient = (
+  clientRedeemed: string[] = []
 ): {
-  redeemedCount: number;
-  totalVouchers: number;
-  redeemedVouchers: string[];
-  isAllCompleted: boolean;
-} => {
-  if (Array.isArray(clientRedeemedVouchers)) {
-    const validNumbers = new Set(Object.values(VALID_VOUCHERS));
-    let hasChanges = false;
-
-    for (const vNum of clientRedeemedVouchers) {
-      if (typeof vNum === 'string' && validNumbers.has(vNum)) {
-        if (!inMemoryState.redeemedVouchers.includes(vNum)) {
-          inMemoryState.redeemedVouchers.push(vNum);
-          hasChanges = true;
-        }
-      }
-    }
-
-    if (hasChanges) {
-      inMemoryState.redeemedVouchers.sort((a, b) => Number(a) - Number(b));
-      inMemoryState.lastUpdated = new Date().toISOString();
-      persistState();
-    }
-  }
-
-  return getVoucherStatus();
-};
-
-/**
- * Obtiene los datos del premio secreto ÚNICAMENTE cuando se han canjeado los 18 vouchers.
- */
-export const getSpecialPrize = (): {
   success: boolean;
   prize?: typeof SECRET_PRIZE;
   error?: string;
 } => {
-  if (inMemoryState.redeemedVouchers.length < TOTAL_VOUCHERS) {
+  if (!Array.isArray(clientRedeemed)) {
+    return {
+      success: false,
+      error: 'Lista de canjes inválida.',
+    };
+  }
+
+  // Verificar que el cliente tenga exactamente los 18 números válidos del 01 al 18
+  const clientSet = new Set(clientRedeemed);
+  let validMatches = 0;
+  for (const num of ALL_VOUCHER_NUMBERS) {
+    if (clientSet.has(num)) {
+      validMatches++;
+    }
+  }
+
+  if (validMatches < TOTAL_VOUCHERS) {
     return {
       success: false,
       error: 'Acceso no autorizado: debes canjear los 18 vouchers para desbloquear el premio.',

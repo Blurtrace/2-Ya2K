@@ -24,9 +24,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Extraer código
+    // 2. Extraer código y estado local del cliente
     const body = await request.json().catch(() => ({}));
     const code = String(body.code || '').trim();
+    const currentRedeemed = Array.isArray(body.currentRedeemed) ? body.currentRedeemed : [];
 
     if (!code) {
       return NextResponse.json(
@@ -35,8 +36,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Validar
-    const result = await validateVoucherCode(code);
+    // 3. Validar con respecto al progreso de este dispositivo
+    const result = await validateVoucherCode(code, currentRedeemed);
 
     if (!result.valid) {
       recordVoucherFailedAttempt(ip);
