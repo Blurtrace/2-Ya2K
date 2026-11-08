@@ -6,7 +6,7 @@ export const dictionaryEs: Record<string, string> = {
   // Nombres de carpeta traducidos en español
   'folder.bankOfMemories': 'BANCO DE RECUERDOS',
   'folder.games': 'Juegos',
-  'folder.ifLoveWereSongs': 'Si el amor fuera canciones',
+  'folder.ifLoveWereSongs': 'If love were songs',
   'folder.comments': '<3',
   'folder.ourLove': 'Nuestro Amor',
   'folder.underConstruction': 'Esta carpeta está en construcción.',

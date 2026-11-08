@@ -9,6 +9,7 @@ import { FolderExplorer } from './FolderExplorer';
 import { FolderStub } from './FolderStub';
 import { GamesExplorer } from '@/folders/Games/GamesExplorer';
 import { TimelineAlbum } from '@/folders/Comments/TimelineAlbum';
+import { MusicPlayerApp } from '@/folders/IfLoveWereSongs/MusicPlayerApp';
 import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { ContextMenu } from './ContextMenu';
@@ -77,6 +78,8 @@ export const Desktop = () => {
               <GamesExplorer />
             ) : win.id === 'comments' ? (
               <TimelineAlbum />
+            ) : win.id === 'if-love-were-songs' ? (
+              <MusicPlayerApp />
             ) : folder.children && folder.children.length > 0 ? (
               <FolderExplorer folder={folder} />
             ) : (

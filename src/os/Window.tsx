@@ -69,7 +69,10 @@ export const Window = ({ windowState, folderDef, children }: WindowProps) => {
     dispatch({ type: 'CLOSE', id: windowState.id });
   };
 
-  const folderTitle = t(folderDef.nameKey);
+  const folderTitle =
+    folderDef.id === 'if-love-were-songs'
+      ? 'Windows Media Player - If love were songs ♡'
+      : t(folderDef.nameKey);
 
   // Si está minimizada, no se dibuja en pantalla (pero vive en la barra de tareas)
   if (windowState.minimized) {

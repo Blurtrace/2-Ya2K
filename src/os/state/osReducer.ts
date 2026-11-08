@@ -42,14 +42,15 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
 
       const isGames = action.id === 'games';
       const isComments = action.id === 'comments';
-      const isLarge = isGames || isComments;
+      const isSongs = action.id === 'if-love-were-songs';
+      const isLarge = isGames || isComments || isSongs;
 
       const newWindow: WindowState = {
         id: action.id,
         x: isLarge ? Math.max(16, offsetX - 30) : offsetX,
         y: isLarge ? 16 : offsetY,
-        width: isComments ? 760 : isGames ? 740 : 440,
-        height: isComments ? 620 : isGames ? 520 : 300,
+        width: isComments ? 760 : isSongs ? 720 : isGames ? 740 : 440,
+        height: isComments ? 620 : isSongs ? 620 : isGames ? 520 : 300,
         zIndex: nextZ,
         minimized: false,
         maximized: false,

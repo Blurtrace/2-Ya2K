@@ -15,7 +15,7 @@ export const folders: FolderDef[] = [
     id: 'if-love-were-songs',
     nameKey: 'folder.ifLoveWereSongs',       // "Si el amor fuera canciones" / "If love were songs"
     icon: '/icons/folder-music.png',
-    status: 'planned',                       // Stub
+    status: 'ready',                         // Reproductor de música retro Windows Media Player 98
   },
   {
     id: 'comments',
