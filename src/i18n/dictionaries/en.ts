@@ -427,4 +427,28 @@ export const dictionaryEn: Record<string, string> = {
 
   'guide.step11.title': 'Borahae, Yaczury! 💜',
   'guide.step11.text': 'We hope you enjoy every corner of ECOS 98, Yaczury. In the Start button you can switch language between Spanish and English. Everything was handmade with all of Jandy\'s love for you! 💜 보라해',
+
+  // Millennium Countdown (Y2K Countdown 1999 ➔ 2000)
+  'countdown.windowTitle': 'ECOS 98 — Millennium Countdown (1999 ➔ 2000)',
+  'countdown.badgeY2K': 'Y2K TRANSITION • 1999 ➔ 2000',
+  'countdown.days': 'DAYS',
+  'countdown.hours': 'HOURS',
+  'countdown.minutes': 'MIN',
+  'countdown.seconds': 'SEC',
+  'countdown.milliseconds': 'MS',
+  'countdown.systemStatus': 'SYSTEM STATUS',
+  'countdown.statusWaiting': 'AWAITING THE NEW MILLENNIUM (NOVEMBER 10)',
+  'countdown.targetDate': 'TARGET DATE: 10-NOV-2026 • 00:00:00 (BOGOTÁ, UTC-5)',
+  'countdown.currentTime': 'BOGOTÁ TIME:',
+  'countdown.explanationTitle': 'Love Overflow Protocol (Y2K Bug)',
+  'countdown.explanationText': 'The ECOS 98 system is undergoing temporal calibration. At 00:00 on November 10, the circuits will overflow with a massive overload of love: all photos, dedications, retro music, vouchers, and memories that Jandy prepared for Yaczury will be unlocked.',
+  'countdown.tataBubble': 'Almost there, Yaczury! Jandy programmed every single second of this countdown toward the millennium. Don\'t touch anything until the 12 bells chime! 💜✨',
+  'countdown.syncButton': '🔄 Sync Bogotá RTC',
+  'countdown.syncSuccess': 'Official Bogotá time confirmed: {time}. System clock in sync.',
+  'countdown.developerAccess': 'Secret Access',
+  'countdown.developerPrompt': 'Enter the preview key to enter before time:',
+  'countdown.developerInvalid': 'Incorrect key. The millennium cannot be rushed.',
+  'countdown.transitioning': 'Y2K EFFECT ACTIVATED! 🎆\nUnlocking ECOS 98...',
+  'countdown.welcome2000': 'WELCOME TO THE YEAR 2000, YACZURY! 💜',
+  'countdown.switchLang': 'Español',
 };

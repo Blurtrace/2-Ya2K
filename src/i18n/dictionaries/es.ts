@@ -427,4 +427,28 @@ export const dictionaryEs: Record<string, string> = {
 
   'guide.step11.title': '¡Borahae, Yaczury! 💜',
   'guide.step11.text': 'Esperamos que disfrutes cada rincón de ECOS 98, Yaczury. En el botón Inicio puedes cambiar el idioma entre Español e Inglés. Todo fue hecho a mano por alguien que te adora con toda su alma. ¡Borahae! 💜 보라해',
+
+  // Conteo Regresivo del Milenio (Y2K Countdown 1999 ➔ 2000)
+  'countdown.windowTitle': 'ECOS 98 — Conteo Regresivo del Milenio (1999 ➔ 2000)',
+  'countdown.badgeY2K': 'TRANSICIÓN Y2K • 1999 ➔ 2000',
+  'countdown.days': 'DÍAS',
+  'countdown.hours': 'HORAS',
+  'countdown.minutes': 'MIN',
+  'countdown.seconds': 'SEG',
+  'countdown.milliseconds': 'MS',
+  'countdown.systemStatus': 'ESTADO DEL SISTEMA',
+  'countdown.statusWaiting': 'ESPERANDO EL NUEVO MILENIO (10 DE NOVIEMBRE)',
+  'countdown.targetDate': 'FECHA OBJETIVO: 10-NOV-2026 • 00:00:00 (BOGOTÁ, UTC-5)',
+  'countdown.currentTime': 'HORA DE BOGOTÁ:',
+  'countdown.explanationTitle': 'Protocolo de Desbordamiento de Amor (Efecto 2000)',
+  'countdown.explanationText': 'El sistema ECOS 98 se encuentra en calibración temporal. A las 00:00 del 10 de Noviembre, los circuitos colapsarán con una sobrecarga masiva de amor: todas las fotos, dedicatorias, música retro, vouchers y recuerdos que Jandy preparó para Yaczury quedarán liberados.',
+  'countdown.tataBubble': '¡Falta muy poco, Yaczury! Jandy programó cada segundo de este conteo hacia el milenio. ¡No toques nada hasta que suenen las 12 campanadas! 💜✨',
+  'countdown.syncButton': '🔄 Sincronizar RTC Bogotá',
+  'countdown.syncSuccess': 'Hora oficial de Bogotá confirmada: {time}. Reloj del sistema sincronizado.',
+  'countdown.developerAccess': 'Acceso Secreto',
+  'countdown.developerPrompt': 'Introduce la clave de previsualización para entrar antes de tiempo:',
+  'countdown.developerInvalid': 'Clave incorrecta. El milenio no se puede apresurar.',
+  'countdown.transitioning': '¡EFECTO 2000 ACTIVADO! 🎆\nDesbloqueando ECOS 98...',
+  'countdown.welcome2000': '¡BIENVENIDA AL AÑO 2000, YACZURY! 💜',
+  'countdown.switchLang': 'English',
 };
