@@ -94,7 +94,7 @@ export const RecycleBinExplorer = () => {
 
   const handleDesktopFolderDoubleClick = (folderId: string, folderName: string) => {
     setActiveDialog({
-      title: `${folderName} - Papelera de reciclaje`,
+      title: `${folderName} - ${t('recycleBin.title')}`,
       content: t('recycleBin.askRestoreItem', { name: folderName }),
       restoreId: folderId,
     });
@@ -281,7 +281,7 @@ export const RecycleBinExplorer = () => {
                   isSelected ? 'text-white/80' : ''
                 }`}
               >
-                [Restaurable]
+                {t('recycleBin.restorable')}
               </span>
             </div>
           );
