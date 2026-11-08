@@ -92,6 +92,22 @@ const PurblePlaceApp = dynamic(
   }
 );
 
+const VoucherValidatorApp = dynamic(
+  () => import('@/folders/VoucherValidator/VoucherValidatorApp').then((mod) => mod.VoucherValidatorApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback messageKey="loading.voucherValidator" />,
+  }
+);
+
+const SpecialVoucherView = dynamic(
+  () => import('@/folders/VoucherValidator/SpecialVoucherView').then((mod) => mod.SpecialVoucherView),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback messageKey="loading.specialVoucher" />,
+  }
+);
+
 /**
  * Componente principal del Escritorio de Windows 98 / ECOS.
  * Administra el fondo teal, los iconos en rejilla vertical, las ventanas abiertas,
@@ -178,6 +194,10 @@ export const Desktop = () => {
               <PinballApp />
             ) : win.id === 'purble-place' ? (
               <PurblePlaceApp />
+            ) : win.id === 'voucher-validator' ? (
+              <VoucherValidatorApp />
+            ) : win.id === 'special-voucher' ? (
+              <SpecialVoucherView />
             ) : folder.children && folder.children.length > 0 ? (
               <FolderExplorer folder={folder} />
             ) : (

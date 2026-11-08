@@ -11,6 +11,7 @@ export type FolderDef = {
   status: 'planned' | 'ready';           // 'planned' = stub en construcción
   component?: () => Promise<{ default: React.ComponentType }>; // Componente cargado dinámicamente
   children?: FolderDef[];                // Subcarpetas cuando actúa como explorador contenedor
+  hidden?: boolean;                      // Ocultar del escritorio principal
 };
 
 /**

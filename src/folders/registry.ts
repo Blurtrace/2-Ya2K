@@ -9,7 +9,15 @@ export const folders: FolderDef[] = [
     id: 'my-computer',
     nameKey: 'folder.myComputer',            // "Mi PC" / "My Computer"
     icon: '/icons/my-computer.png',
-    status: 'planned',                       // Stub inicial - icono mítico de Windows 98
+    status: 'ready',
+    children: [
+      {
+        id: 'voucher-validator',
+        nameKey: 'app.voucherValidator',      // "Validador de Vouchers"
+        icon: '/icons/voucher.png',
+        status: 'ready',
+      },
+    ],
   },
   {
     id: 'recycle-bin',
@@ -65,6 +73,13 @@ export const folders: FolderDef[] = [
     icon: '/icons/purble-place.png',
     status: 'ready',                         // Versión web con los 3 minijuegos
   },
+  {
+    id: 'special-voucher',
+    nameKey: 'app.specialVoucher',           // "Voucher Especial" / "Special Voucher"
+    icon: '/icons/voucher.png',
+    status: 'ready',
+    hidden: true,
+  },
 ];
 
 /**
@@ -84,5 +99,5 @@ export const findFolderById = (id: string, list: FolderDef[] = folders): FolderD
 /**
  * Devuelve únicamente las carpetas de nivel superior que residen en el escritorio.
  */
-export const getDesktopFolders = (): FolderDef[] => folders;
+export const getDesktopFolders = (): FolderDef[] => folders.filter((f) => !f.hidden);
 

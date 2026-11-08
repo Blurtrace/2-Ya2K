@@ -48,14 +48,17 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       const isSolitaire = action.id === 'solitaire';
       const isPinball = action.id === 'pinball';
       const isPurblePlace = action.id === 'purble-place';
-      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace;
+      const isVoucherValidator = action.id === 'voucher-validator';
+      const isSpecialVoucher = action.id === 'special-voucher';
+      const isMyComputer = action.id === 'my-computer';
+      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace || isSpecialVoucher;
 
       const newWindow: WindowState = {
         id: action.id,
         x: isLarge ? Math.max(16, offsetX - 30) : isMinesweeper ? Math.max(100, offsetX) : offsetX,
         y: isLarge ? 16 : isMinesweeper ? 60 : offsetY,
-        width: (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isPinball ? 640 : isSolitaire ? 680 : isMinesweeper ? 212 : 440,
-        height: (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isPinball ? 540 : isSolitaire ? 520 : isMinesweeper ? 305 : 300,
+        width: (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isSpecialVoucher ? 620 : isPinball ? 640 : isSolitaire ? 680 : isMyComputer ? 480 : isVoucherValidator ? 460 : isMinesweeper ? 212 : 440,
+        height: (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isSpecialVoucher ? 520 : isPinball ? 540 : isSolitaire ? 520 : isMyComputer ? 320 : isVoucherValidator ? 420 : isMinesweeper ? 305 : 300,
         zIndex: nextZ,
         minimized: false,
         maximized: false,
