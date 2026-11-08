@@ -108,6 +108,14 @@ const SpecialVoucherView = dynamic(
   }
 );
 
+const RecycleBinExplorer = dynamic(
+  () => import('@/folders/RecycleBin/RecycleBinExplorer').then((mod) => mod.RecycleBinExplorer),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback messageKey="loading.recycleBin" />,
+  }
+);
+
 /**
  * Componente principal del Escritorio de Windows 98 / ECOS.
  * Administra el fondo teal, los iconos en rejilla vertical, las ventanas abiertas,
@@ -129,6 +137,21 @@ export const Desktop = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [dispatch]);
 
+  // Carga inicial de elementos de la papelera desde localStorage
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('ECOS_RECYCLED_V1');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          parsed.forEach((id: string) => {
+            dispatch({ type: 'MOVE_TO_RECYCLE_BIN', id });
+          });
+        }
+      }
+    } catch {}
+  }, [dispatch]);
+
   // 2. Temporizador para finalizar el refresco retro
   useEffect(() => {
     if (state.isRefreshing) {
@@ -139,9 +162,11 @@ export const Desktop = () => {
     }
   }, [state.isRefreshing, dispatch]);
 
-  // 3. Ordenamiento dinámico de los iconos del escritorio
+  // 3. Ordenamiento dinámico de los iconos del escritorio (excluyendo los que están en la Papelera)
   const desktopFolders = useMemo(() => {
-    const raw = getDesktopFolders();
+    const raw = getDesktopFolders().filter(
+      (folder) => !state.recycledIds.includes(folder.id)
+    );
     if (state.iconSortOrder === 'name') {
       return [...raw].sort((a, b) =>
         t(a.nameKey).localeCompare(t(b.nameKey), lang)
@@ -162,7 +187,7 @@ export const Desktop = () => {
       });
     }
     return raw;
-  }, [state.iconSortOrder, lang, t]);
+  }, [state.iconSortOrder, state.recycledIds, lang, t]);
 
   const handleDesktopClick = () => {
     // Clic en el fondo deselecciona iconos y cierra menús
@@ -199,6 +224,10 @@ export const Desktop = () => {
     dispatch({ type: 'OPEN', id });
   };
 
+  const handleDropToRecycleBin = (id: string) => {
+    dispatch({ type: 'MOVE_TO_RECYCLE_BIN', id });
+  };
+
   return (
     <main
       onClick={handleDesktopClick}
@@ -221,6 +250,7 @@ export const Desktop = () => {
             isSelected={state.selectedIconId === folder.id}
             onSelect={handleSelectIcon}
             onOpen={handleOpenFolder}
+            onDropToRecycleBin={handleDropToRecycleBin}
           />
         ))}
       </div>
@@ -252,6 +282,8 @@ export const Desktop = () => {
               <VoucherValidatorApp />
             ) : win.id === 'special-voucher' ? (
               <SpecialVoucherView />
+            ) : win.id === 'recycle-bin' ? (
+              <RecycleBinExplorer />
             ) : folder.children && folder.children.length > 0 ? (
               <FolderExplorer folder={folder} />
             ) : (

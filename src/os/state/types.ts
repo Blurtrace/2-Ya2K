@@ -65,6 +65,7 @@ export type OsState = {
   contextMenu: ContextMenuState | null;
   iconSortOrder: IconSortOrder;
   isRefreshing: boolean;
+  recycledIds: string[];
 };
 
 /**
@@ -86,5 +87,8 @@ export type OsAction =
   | { type: 'CLOSE_MODAL' }
   | { type: 'SET_ICON_SORT'; order: IconSortOrder }
   | { type: 'START_REFRESH' }
-  | { type: 'END_REFRESH' };
+  | { type: 'END_REFRESH' }
+  | { type: 'MOVE_TO_RECYCLE_BIN'; id: string }
+  | { type: 'RESTORE_FROM_RECYCLE_BIN'; id: string }
+  | { type: 'RESTORE_ALL_FROM_RECYCLE_BIN' };
 

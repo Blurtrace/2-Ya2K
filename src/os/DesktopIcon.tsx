@@ -10,16 +10,26 @@ type DesktopIconProps = {
   isSelected: boolean;
   onSelect: (id: string) => void;
   onOpen: (id: string) => void;
+  onDropToRecycleBin?: (id: string) => void;
 };
 
 /**
  * Icono de escritorio Windows 98.
  * Rejilla de ~75px, icono 32x32, etiqueta con sombra de texto o resaltada en azul marino.
- * Doble clic (o doble toque) abre la ventana; un solo clic selecciona.
+ * Soporta arrastrar y soltar a la Papelera de reciclaje.
  */
-export const DesktopIcon = ({ folder, isSelected, onSelect, onOpen }: DesktopIconProps) => {
+export const DesktopIcon = ({
+  folder,
+  isSelected,
+  onSelect,
+  onOpen,
+  onDropToRecycleBin,
+}: DesktopIconProps) => {
   const { t } = useT();
   const lastTapRef = useRef<number>(0);
+  const [isDragOver, setIsDragOver] = React.useState(false);
+
+  const isRecycleBin = folder.id === 'recycle-bin';
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -52,17 +62,51 @@ export const DesktopIcon = ({ folder, isSelected, onSelect, onOpen }: DesktopIco
     }
   };
 
+  // Drag and Drop hacia la Papelera de reciclaje
+  const handleDragStart = (e: React.DragEvent) => {
+    e.dataTransfer.setData('text/plain', folder.id);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    if (!isRecycleBin) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (!isDragOver) setIsDragOver(true);
+  };
+
+  const handleDragLeave = () => {
+    if (isDragOver) setIsDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    if (!isRecycleBin) return;
+    e.preventDefault();
+    setIsDragOver(false);
+    const draggedId = e.dataTransfer.getData('text/plain');
+    if (draggedId && draggedId !== 'recycle-bin') {
+      onDropToRecycleBin?.(draggedId);
+    }
+  };
+
   const folderName = t(folder.nameKey);
 
   return (
     <button
       type="button"
       tabIndex={0}
+      draggable={!isRecycleBin}
+      onDragStart={!isRecycleBin ? handleDragStart : undefined}
+      onDragOver={isRecycleBin ? handleDragOver : undefined}
+      onDragLeave={isRecycleBin ? handleDragLeave : undefined}
+      onDrop={isRecycleBin ? handleDrop : undefined}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
       onTouchEnd={handleTouchEnd}
       onKeyDown={handleKeyDown}
-      className="group flex flex-col items-center justify-start w-[76px] p-1 select-none cursor-pointer focus:outline-none"
+      className={`group flex flex-col items-center justify-start w-[76px] p-1 select-none cursor-pointer focus:outline-none transition-colors ${
+        isDragOver ? 'bg-white/30 outline outline-2 outline-dashed outline-yellow-200' : ''
+      }`}
       aria-label={folderName}
     >
       {/* Icono de 32x32 píxeles con renderizado pixelado */}

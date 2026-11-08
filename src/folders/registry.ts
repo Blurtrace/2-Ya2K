@@ -23,7 +23,7 @@ export const folders: FolderDef[] = [
     id: 'recycle-bin',
     nameKey: 'folder.recycleBin',            // "Papelera" / "Recycle Bin"
     icon: '/icons/recycle-bin.png',
-    status: 'planned',                       // Stub inicial - icono mítico de Windows 98
+    status: 'ready',                         // Papelera de reciclaje interactiva con recuerdos protegidos
   },
   {
     id: 'games',

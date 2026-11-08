@@ -10,6 +10,7 @@ export const initialOsState: OsState = {
   contextMenu: null,
   iconSortOrder: 'default',
   isRefreshing: false,
+  recycledIds: [],
 };
 
 /**
@@ -53,14 +54,15 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       const isVoucherValidator = action.id === 'voucher-validator';
       const isSpecialVoucher = action.id === 'special-voucher';
       const isMyComputer = action.id === 'my-computer';
-      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace || isSpecialVoucher;
+      const isRecycleBin = action.id === 'recycle-bin';
+      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace || isSpecialVoucher || isRecycleBin;
 
       const newWindow: WindowState = {
         id: action.id,
         x: isLarge ? Math.max(16, offsetX - 30) : isMinesweeper ? Math.max(100, offsetX) : offsetX,
         y: isLarge ? 16 : isMinesweeper ? 60 : offsetY,
-        width: (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isSpecialVoucher ? 620 : isPinball ? 640 : isSolitaire ? 680 : isMyComputer ? 480 : isVoucherValidator ? 460 : isMinesweeper ? 212 : 440,
-        height: (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isSpecialVoucher ? 520 : isPinball ? 540 : isSolitaire ? 520 : isMyComputer ? 320 : isVoucherValidator ? 420 : isMinesweeper ? 305 : 300,
+        width: (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isSpecialVoucher ? 620 : isRecycleBin ? 600 : isPinball ? 640 : isSolitaire ? 680 : isMyComputer ? 480 : isVoucherValidator ? 460 : isMinesweeper ? 212 : 440,
+        height: (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isSpecialVoucher ? 520 : isRecycleBin ? 420 : isPinball ? 540 : isSolitaire ? 520 : isMyComputer ? 320 : isVoucherValidator ? 420 : isMinesweeper ? 305 : 300,
         zIndex: nextZ,
         minimized: false,
         maximized: false,
@@ -273,6 +275,48 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       return {
         ...state,
         isRefreshing: false,
+      };
+    }
+
+    case 'MOVE_TO_RECYCLE_BIN': {
+      if (action.id === 'recycle-bin' || state.recycledIds.includes(action.id)) {
+        return state;
+      }
+      const next = [...state.recycledIds, action.id];
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('ECOS_RECYCLED_V1', JSON.stringify(next));
+        } catch {}
+      }
+      return {
+        ...state,
+        recycledIds: next,
+        selectedIconId: null,
+      };
+    }
+
+    case 'RESTORE_FROM_RECYCLE_BIN': {
+      const next = state.recycledIds.filter((id) => id !== action.id);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('ECOS_RECYCLED_V1', JSON.stringify(next));
+        } catch {}
+      }
+      return {
+        ...state,
+        recycledIds: next,
+      };
+    }
+
+    case 'RESTORE_ALL_FROM_RECYCLE_BIN': {
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.removeItem('ECOS_RECYCLED_V1');
+        } catch {}
+      }
+      return {
+        ...state,
+        recycledIds: [],
       };
     }
 
