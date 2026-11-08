@@ -12,6 +12,7 @@ import { SevenSegmentDisplay } from './SevenSegmentDisplay';
 import { SmileyButton } from './SmileyButton';
 import { sounds } from './sounds';
 import { useOs } from '@/os/state/OsContext';
+import { useT } from '@/i18n/I18nContext';
 
 const NUMBER_COLORS: Record<number, string> = {
   1: '#0000FF', // Blue
@@ -26,6 +27,7 @@ const NUMBER_COLORS: Record<number, string> = {
 
 export const MinesweeperApp = () => {
   const { dispatch } = useOs();
+  const { t } = useT();
   const [difficulty, setDifficulty] = useState<Difficulty>('beginner');
   const [grid, setGrid] = useState<Cell[][]>([]);
   const [gameStatus, setGameStatus] = useState<GameStatus>('idle');
@@ -432,7 +434,7 @@ export const MinesweeperApp = () => {
             onClick={() => setShowGameMenu(!showGameMenu)}
             className="hover:bg-[#000080] hover:text-white px-1.5 py-0.5 cursor-pointer select-none"
           >
-            Juego
+            {t('menu.game')}
           </button>
 
           {/* Menú desplegable */}
@@ -443,7 +445,7 @@ export const MinesweeperApp = () => {
                 onClick={() => resetGame(difficulty)}
                 className="w-full flex items-center justify-between px-2 py-1 text-left hover:bg-[#000080] hover:text-white cursor-pointer"
               >
-                <span>Nuevo</span>
+                <span>{t('menu.new')}</span>
                 <span className="text-[9px] text-gray-600 hover:text-white">F2</span>
               </button>
               <div className="my-1 border-t border-[#808080]" />
@@ -452,7 +454,7 @@ export const MinesweeperApp = () => {
                 onClick={() => resetGame('beginner')}
                 className="w-full flex items-center justify-between px-2 py-1 text-left hover:bg-[#000080] hover:text-white cursor-pointer"
               >
-                <span>Principiante (9×9)</span>
+                <span>{t('minesweeper.beginner')}</span>
                 {difficulty === 'beginner' && <span className="font-bold">✓</span>}
               </button>
               <button
@@ -460,7 +462,7 @@ export const MinesweeperApp = () => {
                 onClick={() => resetGame('intermediate')}
                 className="w-full flex items-center justify-between px-2 py-1 text-left hover:bg-[#000080] hover:text-white cursor-pointer"
               >
-                <span>Intermedio (16×16)</span>
+                <span>{t('minesweeper.intermediate')}</span>
                 {difficulty === 'intermediate' && <span className="font-bold">✓</span>}
               </button>
               <button
@@ -468,7 +470,7 @@ export const MinesweeperApp = () => {
                 onClick={() => resetGame('expert')}
                 className="w-full flex items-center justify-between px-2 py-1 text-left hover:bg-[#000080] hover:text-white cursor-pointer"
               >
-                <span>Experto (16×30)</span>
+                <span>{t('minesweeper.expert')}</span>
                 {difficulty === 'expert' && <span className="font-bold">✓</span>}
               </button>
               <div className="my-1 border-t border-[#808080]" />
@@ -477,7 +479,7 @@ export const MinesweeperApp = () => {
                 onClick={() => setSoundEnabled(!soundEnabled)}
                 className="w-full flex items-center justify-between px-2 py-1 text-left hover:bg-[#000080] hover:text-white cursor-pointer"
               >
-                <span>Efectos de sonido</span>
+                <span>{t('minesweeper.soundEffects')}</span>
                 {soundEnabled && <span className="font-bold">✓</span>}
               </button>
               <div className="my-1 border-t border-[#808080]" />
@@ -486,7 +488,7 @@ export const MinesweeperApp = () => {
                 onClick={() => dispatch({ type: 'CLOSE', id: 'minesweeper' })}
                 className="w-full flex items-center px-2 py-1 text-left hover:bg-[#000080] hover:text-white cursor-pointer"
               >
-                Salir
+                {t('menu.exit')}
               </button>
             </div>
           )}
@@ -501,7 +503,7 @@ export const MinesweeperApp = () => {
               mobileMode === 'flag' ? 'bg-[#FFFF00] text-black win-pressed' : 'win-button'
             }`}
           >
-            <span>{mobileMode === 'flag' ? '🚩 Modo Bandera' : '⛏️ Modo Revelar'}</span>
+            <span>{mobileMode === 'flag' ? `🚩 ${t('minesweeper.flag')}` : `⛏️ ${t('minesweeper.dig')}`}</span>
           </button>
         </div>
       </div>

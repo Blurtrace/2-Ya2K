@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { JewelCase } from './JewelCase';
 import { SONGS_DATA, Song } from './songsData';
+import { useT } from '@/i18n/I18nContext';
 
 type ShelfCarouselProps = {
   discoveredIds: string[];
@@ -15,6 +16,7 @@ export const ShelfCarousel = ({
   selectedSongId,
   onSelectSong,
 }: ShelfCarouselProps) => {
+  const { t } = useT();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -32,14 +34,14 @@ export const ShelfCarousel = ({
       <div className="flex items-center justify-between pb-1 px-1 text-[11px] font-bold text-gray-800">
         <span className="flex items-center gap-1">
           <span>💿</span>
-          <span>Estante de Canciones ({discoveredCount} de {totalCount} descubiertas)</span>
+          <span>{t('songs.shelfTitleWithCount', { discovered: discoveredCount, total: totalCount })}</span>
         </span>
         <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={() => scroll('left')}
             className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-2 py-0.5 text-[10px] font-bold"
-            title="Desplazar a la izquierda"
+            title={t('songs.scrollLeft')}
           >
             ◀
           </button>
@@ -47,7 +49,7 @@ export const ShelfCarousel = ({
             type="button"
             onClick={() => scroll('right')}
             className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-2 py-0.5 text-[10px] font-bold"
-            title="Desplazar a la derecha"
+            title={t('songs.scrollRight')}
           >
             ▶
           </button>
@@ -74,7 +76,7 @@ export const ShelfCarousel = ({
                 onClick={isDiscovered ? () => onSelectSong(song) : undefined}
               />
               <span className="text-[10px] font-mono text-gray-700 mt-1 truncate max-w-[72px] text-center">
-                {isDiscovered ? song.title : `Pista ${song.trackNumber}`}
+                {isDiscovered ? song.title : t('songs.track', { track: song.trackNumber })}
               </span>
             </div>
           );

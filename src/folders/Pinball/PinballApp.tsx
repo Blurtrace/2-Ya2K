@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useOs } from '@/os/state/OsContext';
+import { useT } from '@/i18n/I18nContext';
 
 const PINBALL_URL = 'https://alula.github.io/SpaceCadetPinball/';
 
@@ -13,6 +14,7 @@ const PINBALL_URL = 'https://alula.github.io/SpaceCadetPinball/';
  */
 export const PinballApp = () => {
   const { dispatch } = useOs();
+  const { t } = useT();
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -69,7 +71,7 @@ export const PinballApp = () => {
               openMenu === 'juego' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            <span className="underline">J</span>uego
+            <span className="underline">{t('menu.game').charAt(0)}</span>{t('menu.game').slice(1)}
           </button>
           {openMenu === 'juego' && (
             <div
@@ -81,7 +83,7 @@ export const PinballApp = () => {
                 onClick={handleRestart}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white flex justify-between"
               >
-                <span>Nueva partida</span>
+                <span>{t('menu.newGame')}</span>
                 <span className="text-gray-500 hover:text-white">F2</span>
               </button>
               <button
@@ -89,7 +91,7 @@ export const PinballApp = () => {
                 onClick={handleFullscreen}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Pantalla completa
+                {t('menu.fullscreen')}
               </button>
               <div className="h-[1px] bg-gray-400 my-1 mx-1" />
               <button
@@ -97,7 +99,7 @@ export const PinballApp = () => {
                 onClick={() => dispatch({ type: 'CLOSE', id: 'pinball' })}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Salir
+                {t('menu.exit')}
               </button>
             </div>
           )}
@@ -115,7 +117,7 @@ export const PinballApp = () => {
               openMenu === 'opciones' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            <span className="underline">O</span>pciones
+            <span className="underline">{t('menu.options').charAt(0)}</span>{t('menu.options').slice(1)}
           </button>
           {openMenu === 'opciones' && (
             <div
@@ -127,14 +129,14 @@ export const PinballApp = () => {
                 onClick={() => setShowControlsDialog(true)}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Controles de juego...
+                {t('pinball.controls')}
               </button>
               <button
                 type="button"
                 onClick={handleRestart}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Reiniciar motor WASM
+                {t('pinball.restart')}
               </button>
             </div>
           )}
@@ -152,7 +154,7 @@ export const PinballApp = () => {
               openMenu === 'ayuda' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            <span className="underline">A</span>yuda
+            <span className="underline">{t('menu.help').charAt(0)}</span>{t('menu.help').slice(1)}
           </button>
           {openMenu === 'ayuda' && (
             <div
@@ -164,7 +166,7 @@ export const PinballApp = () => {
                 onClick={() => setShowControlsDialog(true)}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Cómo jugar Pinball
+                {t('pinball.controls')}
               </button>
               <div className="h-[1px] bg-gray-400 my-1 mx-1" />
               <button
@@ -172,7 +174,7 @@ export const PinballApp = () => {
                 onClick={() => setShowAboutDialog(true)}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Acerca de 3D Pinball...
+                {t('pinball.about')}
               </button>
             </div>
           )}
@@ -183,10 +185,10 @@ export const PinballApp = () => {
           type="button"
           onClick={handleFocusGame}
           className="ml-auto mr-1 px-1.5 py-0.5 win-button text-[10px] flex items-center space-x-1"
-          title="Haz clic para activar los controles de teclado en el juego"
+          title={t('pinball.focusKeyboardTitle')}
         >
           <span>🎯</span>
-          <span>Activar teclado</span>
+          <span>{t('pinball.focusKeyboard')}</span>
         </button>
       </div>
 
@@ -209,7 +211,7 @@ export const PinballApp = () => {
               3D Pinball for Windows - Space Cadet
             </p>
             <p className="text-[11px] text-gray-300 mb-4 animate-pulse">
-              Iniciando motor original WebAssembly...
+              {t('pinball.loading')}
             </p>
             <div className="w-[180px] h-[14px] win-sunken bg-white p-[1px] relative overflow-hidden">
               <div className="h-full bg-[#000080] animate-pulse w-full" />
@@ -233,9 +235,9 @@ export const PinballApp = () => {
       {/* Barra de estado inferior clásica */}
       <div className="bg-[#C0C0C0] text-black text-[11px] h-[22px] px-2 flex items-center justify-between border-t border-[#808080] select-none font-sans">
         <div className="flex items-center space-x-2 truncate">
-          <span className="font-bold text-[#000080]">Controles:</span>
+          <span className="font-bold text-[#000080]">{t('games.controls')}:</span>
           <span className="text-[#333] truncate">
-            [Z] Flipper Izq &bull; [/ o - o Clic Der] Flipper Der &bull; [Espacio] Lanzar &bull; [X] Sacudir
+            {t('pinball.status')}
           </span>
         </div>
         <div className="text-[10px] text-gray-600 flex-shrink-0 font-mono hidden sm:block">
@@ -330,7 +332,7 @@ export const PinballApp = () => {
                 }}
                 className="win-button win-button-default min-w-[70px] py-0.5 text-[11px] font-bold"
               >
-                Aceptar
+                {t('dialog.ok')}
               </button>
             </div>
           </div>
@@ -341,12 +343,12 @@ export const PinballApp = () => {
       {showAboutDialog && (
         <div
           role="dialog"
-          aria-label="Acerca de 3D Pinball"
+          aria-label={t('pinball.aboutTitle')}
           className="absolute inset-0 z-50 bg-black/40 flex items-center justify-center p-4 select-none"
         >
           <div className="win-raised bg-[#C0C0C0] p-[3px] w-full max-w-[380px] text-black">
             <div className="win-titlebar-active flex items-center justify-between px-1.5 py-0.5 mb-2">
-              <span className="text-[11px] font-bold">Acerca de 3D Pinball</span>
+              <span className="text-[11px] font-bold">{t('pinball.aboutTitle')}</span>
               <button
                 type="button"
                 onClick={() => setShowAboutDialog(false)}
@@ -368,7 +370,7 @@ export const PinballApp = () => {
                   3D Pinball for Windows - Space Cadet
                 </h4>
                 <p className="text-[10px] text-gray-600">
-                  Desarrollado originalmente por Maxis y Cinematronics para Microsoft Windows.
+                  {t('pinball.aboutDesc')}
                 </p>
                 <p className="text-[10px] text-gray-500">
                   Port WebAssembly fiel al motor binario original C++ por Andrey Muzychenko (k4zmu2a) y Alula.
@@ -384,7 +386,7 @@ export const PinballApp = () => {
                 onClick={() => setShowAboutDialog(false)}
                 className="win-button win-button-default min-w-[70px] py-0.5 text-[11px] font-bold"
               >
-                Aceptar
+                {t('dialog.ok')}
               </button>
             </div>
           </div>

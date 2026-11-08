@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import type { CardBackTheme } from './types';
 import { CardBackView } from './CardView';
+import { useT } from '@/i18n/I18nContext';
 
 type CardBackDialogProps = {
   currentTheme: CardBackTheme;
@@ -10,12 +11,12 @@ type CardBackDialogProps = {
   onClose: () => void;
 };
 
-const THEMES: { id: CardBackTheme; label: string }[] = [
-  { id: 'geometric', label: 'Azul Clásico' },
-  { id: 'beach', label: 'Playa y Palmera' },
-  { id: 'castle', label: 'Castillo Encantado' },
-  { id: 'robot', label: 'Robot de Cuerda' },
-  { id: 'roses', label: 'Rosas Silvestres' },
+const THEMES: { id: CardBackTheme; labelKey: string }[] = [
+  { id: 'geometric', labelKey: 'solitaire.backGeometric' },
+  { id: 'beach', labelKey: 'solitaire.backBeach' },
+  { id: 'castle', labelKey: 'solitaire.backCastle' },
+  { id: 'robot', labelKey: 'solitaire.backRobot' },
+  { id: 'roses', labelKey: 'solitaire.backRoses' },
 ];
 
 /**
@@ -26,6 +27,7 @@ export const CardBackDialog = ({
   onSelect,
   onClose,
 }: CardBackDialogProps) => {
+  const { t } = useT();
   const [selected, setSelected] = useState<CardBackTheme>(currentTheme);
 
   const handleConfirm = () => {
@@ -36,18 +38,18 @@ export const CardBackDialog = ({
   return (
     <div
       role="dialog"
-      aria-label="Seleccionar Baraja"
+      aria-label={t('solitaire.cardBackDialogTitle')}
       className="absolute inset-0 z-40 bg-black/30 flex items-center justify-center p-4 select-none"
     >
       <div className="win-raised bg-[#C0C0C0] p-[3px] w-full max-w-[360px] text-black">
         {/* Barra de título */}
         <div className="win-titlebar-active flex items-center justify-between px-1.5 py-0.5 mb-2">
-          <span className="text-[11px] font-bold">Seleccionar Baraja</span>
+          <span className="text-[11px] font-bold">{t('solitaire.cardBackDialogTitle')}</span>
           <button
             type="button"
             onClick={onClose}
             className="win-button w-4 h-[14px] p-0 font-bold text-[9px] flex items-center justify-center"
-            aria-label="Cerrar"
+            aria-label={t('dialog.close')}
           >
             ✕
           </button>
@@ -56,7 +58,7 @@ export const CardBackDialog = ({
         {/* Rejilla de barajas */}
         <div className="p-2">
           <p className="text-[11px] mb-2 font-semibold">
-            Elige el diseño para el reverso de las cartas:
+            {t('solitaire.chooseDesign')}
           </p>
           <div className="grid grid-cols-3 gap-2 win-sunken p-3 bg-[#E8E8E8] max-h-[220px] overflow-y-auto">
             {THEMES.map((theme) => {
@@ -76,7 +78,7 @@ export const CardBackDialog = ({
                     <CardBackView theme={theme.id} />
                   </div>
                   <span className="text-[10px] font-bold leading-tight line-clamp-1">
-                    {theme.label}
+                    {t(theme.labelKey)}
                   </span>
                 </button>
               );
@@ -91,14 +93,14 @@ export const CardBackDialog = ({
             onClick={handleConfirm}
             className="win-button win-button-default min-w-[70px] py-0.5 text-[11px] font-bold"
           >
-            Aceptar
+            {t('dialog.ok')}
           </button>
           <button
             type="button"
             onClick={onClose}
             className="win-button min-w-[70px] py-0.5 text-[11px]"
           >
-            Cancelar
+            {t('dialog.cancel')}
           </button>
         </div>
       </div>

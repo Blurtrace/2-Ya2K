@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useT } from '@/i18n/I18nContext';
 
 type PasswordDialogProps = {
   onSuccess: () => void;
@@ -8,6 +9,7 @@ type PasswordDialogProps = {
 };
 
 export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => {
+  const { t } = useT();
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,10 +34,10 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
       if (res.ok && data.success) {
         onSuccess();
       } else {
-        setError(data.error || 'Contraseña incorrecta. Inténtalo de nuevo.');
+        setError(data.error || t('songs.errorWrong'));
       }
     } catch {
-      setError('Error de conexión. Inténtalo nuevamente.');
+      setError(t('songs.errorConnection'));
     } finally {
       setIsLoading(false);
     }
@@ -50,10 +52,10 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
           <div className="text-3xl flex-shrink-0 select-none">🗝️</div>
           <div className="flex-1">
             <h3 className="font-bold text-[12px] text-black font-sans leading-tight">
-              Acceso restringido
+              {t('songs.restrictedTitle')}
             </h3>
             <p className="text-[11px] text-gray-800 font-sans mt-1 leading-normal">
-              Esta carpeta está protegida. Solo alguien especial conoce la llave para abrirla.
+              {t('songs.restrictedDesc')}
             </p>
           </div>
         </div>
@@ -62,7 +64,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-1">
           <div className="flex flex-col gap-1">
             <label htmlFor="songs-password-input" className="text-[11px] text-black font-sans">
-              Contraseña:
+              {t('songs.password')}
             </label>
             <input
               id="songs-password-input"
@@ -95,7 +97,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
               className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-2 py-1 text-[11px] font-sans text-gray-800 flex items-center gap-1 cursor-pointer"
             >
               <span>💡</span>
-              <span>Ver pista</span>
+              <span>{t('songs.showHint')}</span>
             </button>
           </div>
 
@@ -106,7 +108,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
               disabled={isLoading || !password.trim()}
               className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed disabled:opacity-50 px-4 py-1 text-[11px] font-bold text-black min-w-[75px] cursor-pointer"
             >
-              {isLoading ? 'Verificando...' : 'Aceptar'}
+              {isLoading ? t('songs.verifying') : t('dialog.ok')}
             </button>
             <button
               type="button"
@@ -114,7 +116,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
               disabled={isLoading}
               className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-4 py-1 text-[11px] text-black min-w-[75px] cursor-pointer"
             >
-              Cancelar
+              {t('dialog.cancel')}
             </button>
           </div>
         </form>
@@ -128,7 +130,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
             <div className="win-titlebar-active flex items-center justify-between px-2 py-1 text-white text-[11px] font-bold">
               <span className="flex items-center gap-1">
                 <span>💡</span>
-                <span>Pista para la contraseña</span>
+                <span>{t('songs.hintTitle')}</span>
               </span>
               <button
                 type="button"
@@ -144,9 +146,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
               <div className="flex items-start gap-2.5">
                 <span className="text-2xl flex-shrink-0">💬</span>
                 <div className="text-[11px] font-sans text-gray-900 leading-relaxed whitespace-pre-line">
-                  &quot;Hay palabras que describen la esencia de algo, no solo su apariencia.
-                  {'\n\n'}En este caso la palabra que buscas no la debes perder de vista.
-                  {'\n\n'}Pues es la llave a un tesoro que habla por si solo. ♡&quot;
+                  &quot;{t('songs.hintDialogBody')}&quot;
                 </div>
               </div>
 
@@ -157,7 +157,7 @@ export const PasswordDialog = ({ onSuccess, onCancel }: PasswordDialogProps) => 
                   onClick={() => setShowHint(false)}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-5 py-1 text-[11px] font-bold text-black min-w-[70px]"
                 >
-                  Entendido
+                  {t('songs.understood')}
                 </button>
               </div>
             </div>

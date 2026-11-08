@@ -9,11 +9,13 @@ import { ShelfCarousel } from './ShelfCarousel';
 import { FullCollectionView } from './FullCollectionView';
 import { PasswordDialog } from './PasswordDialog';
 import { useOs } from '@/os/state/OsContext';
+import { useT } from '@/i18n/I18nContext';
 
 const STORAGE_KEY = 'ecos_discovered_songs';
 
 export const MusicPlayerApp = () => {
   const { dispatch } = useOs();
+  const { lang, t } = useT();
 
   // Estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -334,7 +336,7 @@ export const MusicPlayerApp = () => {
               activeMenu === 'file' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            Archivo
+            {t('explorer.file')}
           </button>
           {activeMenu === 'file' && (
             <div className="absolute left-0 top-full mt-[1px] bg-[#C0C0C0] win-raised p-[2px] min-w-[190px] shadow-lg z-50 flex flex-col text-[11px]">
@@ -343,8 +345,8 @@ export const MusicPlayerApp = () => {
                 onClick={handleLogout}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white flex items-center justify-between"
               >
-                <span>🔒 Bloquear carpeta</span>
-                <span className="text-[10px] text-gray-500 hover:text-white">Cerrar sesión</span>
+                <span>{t('songs.lockFolder')}</span>
+                <span className="text-[10px] text-gray-500 hover:text-white">{t('songs.logOut')}</span>
               </button>
               <button
                 type="button"
@@ -354,7 +356,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                🔄 Reiniciar descubrimiento...
+                {t('songs.resetDiscovery')}
               </button>
               <div className="border-t border-[#808080] my-[2px]" />
               <button
@@ -362,7 +364,7 @@ export const MusicPlayerApp = () => {
                 onClick={handleCloseWindow}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Salir
+                {t('menu.exit')}
               </button>
             </div>
           )}
@@ -380,7 +382,7 @@ export const MusicPlayerApp = () => {
               activeMenu === 'playback' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            Reproducción
+            {t('songs.playback')}
           </button>
           {activeMenu === 'playback' && (
             <div className="absolute left-0 top-full mt-[1px] bg-[#C0C0C0] win-raised p-[2px] min-w-[170px] shadow-lg z-50 flex flex-col text-[11px]">
@@ -392,7 +394,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                {isPlaying ? '⏸ Pausar (Espacio)' : '▶ Reproducir (Espacio)'}
+                {isPlaying ? t('songs.pauseSpace') : t('songs.playSpace')}
               </button>
               <button
                 type="button"
@@ -402,7 +404,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                ■ Detener
+                {t('songs.stop')}
               </button>
               <div className="border-t border-[#808080] my-[2px]" />
               <button
@@ -413,7 +415,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                ◀◀ Anterior
+                {t('songs.previous')}
               </button>
               <button
                 type="button"
@@ -423,7 +425,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                ▶▶ Siguiente
+                {t('songs.next')}
               </button>
             </div>
           )}
@@ -441,7 +443,7 @@ export const MusicPlayerApp = () => {
               activeMenu === 'tracks' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            Pistas
+            {t('songs.tracks')}
           </button>
           {activeMenu === 'tracks' && (
             <div className="absolute left-0 top-full mt-[1px] bg-[#C0C0C0] win-raised p-[2px] min-w-[210px] shadow-lg z-50 flex flex-col text-[11px]">
@@ -453,7 +455,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                {viewMode === 'player' ? '📋 Ver Colección Completa' : '💿 Ver Reproductor'}
+                {viewMode === 'player' ? t('songs.viewFullCollection') : t('songs.viewPlayer')}
               </button>
               <a
                 href={SPOTIFY_FULL_PLAYLIST_URL}
@@ -461,7 +463,7 @@ export const MusicPlayerApp = () => {
                 rel="noopener noreferrer"
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white text-black no-underline"
               >
-                🟢 Abrir Playlist en Spotify ↗
+                {t('songs.openSpotify')}
               </a>
             </div>
           )}
@@ -479,7 +481,7 @@ export const MusicPlayerApp = () => {
               activeMenu === 'help' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            Ayuda
+            {t('menu.help')}
           </button>
           {activeMenu === 'help' && (
             <div className="absolute left-0 top-full mt-[1px] bg-[#C0C0C0] win-raised p-[2px] min-w-[180px] shadow-lg z-50 flex flex-col text-[11px]">
@@ -491,7 +493,7 @@ export const MusicPlayerApp = () => {
                 }}
                 className="text-left px-2 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Acerca de WMP 98...
+                {t('songs.aboutWmp')}
               </button>
             </div>
           )}
@@ -499,7 +501,7 @@ export const MusicPlayerApp = () => {
 
         {/* Indicador de canciones desbloqueadas a la derecha */}
         <div className="ml-auto text-[10px] font-mono text-gray-700 pr-1 flex items-center gap-1">
-          <span>{allUnlocked ? '✨ Completo' : `Descubiertas: ${discoveredIds.length}/17`}</span>
+          <span>{allUnlocked ? t('songs.allComplete') : t('songs.discoveredCount', { count: discoveredIds.length })}</span>
         </div>
       </div>
 
@@ -519,7 +521,7 @@ export const MusicPlayerApp = () => {
               <div className="flex items-center justify-between text-[10px] text-[#00AA00] uppercase">
                 <span>
                   {currentSong
-                    ? `PISTA ${currentSong.trackNumber.toString().padStart(2, '0')}/17`
+                    ? t('songs.trackN', { track: currentSong.trackNumber.toString().padStart(2, '0') })
                     : 'PISTA --/17'}
                 </span>
                 <span>
@@ -528,10 +530,10 @@ export const MusicPlayerApp = () => {
               </div>
               <div className="text-[13px] font-bold truncate mt-0.5 tracking-wider">
                 {isDiscovering
-                  ? '🎲 BUSCANDO CANCIÓN ALEATORIA...'
+                  ? t('songs.searchingRandom')
                   : currentSong
                   ? `${currentSong.title} - ${currentSong.artist}`
-                  : 'PULSA DESCUBRIR CANCIÓN'}
+                  : t('songs.pressDiscover')}
               </div>
               <div className="text-[10px] flex items-center gap-2 mt-0.5 text-gray-400">
                 <span
@@ -544,12 +546,12 @@ export const MusicPlayerApp = () => {
                   }
                 >
                   {isAudioLoading
-                    ? '[⏳ CARGANDO AUDIO...]'
+                    ? t('songs.loadingAudio')
                     : isPlaying
-                    ? '[▶ REPRODUCIENDO]'
+                    ? t('songs.nowPlaying')
                     : currentSong
-                    ? '[⏸ PAUSADO]'
-                    : '[■ LISTO]'}
+                    ? t('songs.nowPaused')
+                    : t('songs.ready')}
                 </span>
                 {audioError && <span className="text-red-400">⚠️ {audioError}</span>}
               </div>
@@ -585,7 +587,7 @@ export const MusicPlayerApp = () => {
                 disabled={!currentSong || duration === 0}
                 onChange={handleSeek}
                 className="flex-1 h-3 accent-[#000080] cursor-pointer"
-                title="Posición de reproducción"
+                title={t('songs.seekbar')}
               />
               <span className="w-9 text-gray-700">{formatTime(duration)}</span>
             </div>
@@ -599,7 +601,7 @@ export const MusicPlayerApp = () => {
                   onClick={handlePrev}
                   disabled={discoveredIds.length <= 1}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed disabled:opacity-40 px-2.5 py-1 text-[11px] font-bold"
-                  title="Pista anterior descubierta"
+                  title={t('songs.prevTrackTitle')}
                 >
                   |◀◀
                 </button>
@@ -608,16 +610,16 @@ export const MusicPlayerApp = () => {
                   onClick={handlePlayPause}
                   disabled={!currentSong}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed disabled:opacity-40 px-3.5 py-1 text-[11px] font-bold min-w-[65px]"
-                  title={isPlaying ? 'Pausar (Espacio)' : 'Reproducir (Espacio)'}
+                  title={isPlaying ? t('songs.pauseSpace') : t('songs.playSpace')}
                 >
-                  {isPlaying ? '⏸ Pausa' : '▶ Play'}
+                  {isPlaying ? `⏸ ${t('songs.pause')}` : `▶ ${t('songs.play')}`}
                 </button>
                 <button
                   type="button"
                   onClick={handleStop}
                   disabled={!currentSong}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed disabled:opacity-40 px-2.5 py-1 text-[11px] font-bold"
-                  title="Detener"
+                  title={t('songs.stop')}
                 >
                   ■
                 </button>
@@ -626,7 +628,7 @@ export const MusicPlayerApp = () => {
                   onClick={handleNext}
                   disabled={discoveredIds.length <= 1}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed disabled:opacity-40 px-2.5 py-1 text-[11px] font-bold"
-                  title="Siguiente pista descubierta"
+                  title={t('songs.nextTrackTitle')}
                 >
                   ▶▶|
                 </button>
@@ -634,7 +636,7 @@ export const MusicPlayerApp = () => {
 
               {/* Control de volumen */}
               <div className="flex items-center gap-1.5 px-2">
-                <span className="text-[12px] select-none" title="Volumen">
+                <span className="text-[12px] select-none" title={t('songs.volume', { percent: Math.round(volume * 100) })}>
                   {volume === 0 ? '🔇' : volume < 0.5 ? '🔉' : '🔊'}
                 </span>
                 <input
@@ -645,7 +647,7 @@ export const MusicPlayerApp = () => {
                   value={volume}
                   onChange={handleVolumeChange}
                   className="w-16 sm:w-20 h-2 accent-[#000080] cursor-pointer"
-                  title={`Volumen: ${Math.round(volume * 100)}%`}
+                  title={t('songs.volume', { percent: Math.round(volume * 100) })}
                 />
               </div>
 
@@ -659,10 +661,10 @@ export const MusicPlayerApp = () => {
                 <span>{allUnlocked ? '💿' : '🎲'}</span>
                 <span>
                   {isDiscovering
-                    ? 'Descubriendo...'
+                    ? t('songs.discovering')
                     : allUnlocked
-                    ? 'Ver Colección Completa (17/17)'
-                    : 'Descubrir Canción Aleatoria'}
+                    ? t('songs.viewFullCollection')
+                    : t('songs.discoverRandomButton')}
                 </span>
               </button>
             </div>
@@ -682,7 +684,7 @@ export const MusicPlayerApp = () => {
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-3 select-none">
           <div className="w-full max-w-[380px] bg-[#C0C0C0] win-raised p-[3px] shadow-2xl animate-in zoom-in-95 duration-150">
             <div className="win-titlebar-active flex items-center justify-between px-2 py-1 text-white text-[11px] font-bold">
-              <span>¡Colección Completa! 💿♡</span>
+              <span>{t('songs.celebrationTitle')}</span>
               <button
                 type="button"
                 onClick={() => setShowCelebration(false)}
@@ -694,11 +696,10 @@ export const MusicPlayerApp = () => {
             <div className="p-4 bg-[#C0C0C0] flex flex-col gap-3 text-center">
               <div className="text-4xl animate-bounce">💿✨</div>
               <h4 className="text-[13px] font-bold text-[#000080]">
-                ¡Has desbloqueado todas las canciones! 💿♡
+                {t('songs.celebrationHeading')}
               </h4>
               <p className="text-[11px] text-gray-800 leading-normal">
-                Has descubierto las 17 pistas con cada una de sus dedicatorias. Ahora puedes
-                disfrutar de la colección completa en el orden que fueron pensadas para ti.
+                {t('songs.celebrationDesc')}
               </p>
               <div className="flex justify-center gap-2 pt-2 border-t border-[#808080]">
                 <button
@@ -710,14 +711,14 @@ export const MusicPlayerApp = () => {
                   }}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-4 py-1 text-[11px] font-bold text-black"
                 >
-                  Ver Colección Completa
+                  {t('songs.viewFullCollection')}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowCelebration(false)}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-4 py-1 text-[11px] text-black"
                 >
-                  Seguir Escuchando
+                  {t('songs.keepListening')}
                 </button>
               </div>
             </div>
@@ -730,7 +731,7 @@ export const MusicPlayerApp = () => {
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-3 select-none">
           <div className="w-full max-w-[340px] bg-[#C0C0C0] win-raised p-[3px] shadow-2xl">
             <div className="win-titlebar-active flex items-center justify-between px-2 py-1 text-white text-[11px] font-bold">
-              <span>Reiniciar Progreso</span>
+              <span>{t('songs.resetConfirmTitle')}</span>
               <button
                 type="button"
                 onClick={() => setShowResetConfirm(false)}
@@ -743,8 +744,7 @@ export const MusicPlayerApp = () => {
               <div className="flex items-start gap-2.5">
                 <span className="text-2xl">⚠️</span>
                 <p className="text-[11px] text-gray-900 leading-relaxed">
-                  ¿Estás seguro de que deseas reiniciar el progreso de descubrimiento? Todas las
-                  canciones volverán a estar bloqueadas.
+                  {t('songs.resetConfirmDesc')}
                 </p>
               </div>
               <div className="flex justify-end gap-2 pt-2 border-t border-[#808080]">
@@ -753,7 +753,7 @@ export const MusicPlayerApp = () => {
                   onClick={handleConfirmReset}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-4 py-1 text-[11px] font-bold text-black"
                 >
-                  Sí, reiniciar
+                  {t('dialog.ok')}
                 </button>
                 <button
                   type="button"
@@ -761,7 +761,7 @@ export const MusicPlayerApp = () => {
                   onClick={() => setShowResetConfirm(false)}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-4 py-1 text-[11px] text-black"
                 >
-                  Cancelar
+                  {t('dialog.cancel')}
                 </button>
               </div>
             </div>
@@ -774,7 +774,7 @@ export const MusicPlayerApp = () => {
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-3 select-none">
           <div className="w-full max-w-[340px] bg-[#C0C0C0] win-raised p-[3px] shadow-2xl">
             <div className="win-titlebar-active flex items-center justify-between px-2 py-1 text-white text-[11px] font-bold">
-              <span>Acerca de Windows Media Player 98</span>
+              <span>{t('songs.aboutWmpTitle')}</span>
               <button
                 type="button"
                 onClick={() => setShowAbout(false)}
@@ -786,7 +786,7 @@ export const MusicPlayerApp = () => {
             <div className="p-3 bg-[#C0C0C0] flex flex-col gap-2 text-[11px]">
               <div className="font-bold text-[#000080]">Windows Media Player - If love were songs ♡</div>
               <p className="text-gray-700 leading-relaxed">
-                Reproductor nostálgico con estética Windows 98 / Y2K y dedicatorias personales.
+                {t('songs.aboutWmpDesc')}
               </p>
               <div className="flex justify-end pt-2 border-t border-[#808080]">
                 <button
@@ -795,7 +795,7 @@ export const MusicPlayerApp = () => {
                   onClick={() => setShowAbout(false)}
                   className="win-raised bg-[#C0C0C0] hover:bg-[#D4D0C8] active:win-pressed px-4 py-1 text-[11px] font-bold text-black"
                 >
-                  Aceptar
+                  {t('dialog.ok')}
                 </button>
               </div>
             </div>

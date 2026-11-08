@@ -12,23 +12,27 @@ import { Taskbar } from './Taskbar';
 import { StartMenu } from './StartMenu';
 import { ContextMenu } from './ContextMenu';
 import { MessageBox } from './MessageBox';
+import { useT } from '@/i18n/I18nContext';
 
 /** Fallback retro para carga diferida de ventanas */
-const WindowLoadingFallback = ({ message }: { message: string }) => (
-  <div className="w-full h-full min-h-[160px] flex items-center justify-center bg-[#C0C0C0] p-4 text-xs font-mono text-black select-none">
-    <div className="flex items-center space-x-2 win-sunken p-3 bg-white border border-[#808080]">
-      <span className="inline-block animate-pulse">⏳</span>
-      <span>{message}</span>
+const WindowLoadingFallback = ({ messageKey }: { messageKey: string }) => {
+  const { t } = useT();
+  return (
+    <div className="w-full h-full min-h-[160px] flex items-center justify-center bg-[#C0C0C0] p-4 text-xs font-mono text-black select-none">
+      <div className="flex items-center space-x-2 win-sunken p-3 bg-white border border-[#808080]">
+        <span className="inline-block animate-pulse">⏳</span>
+        <span>{t(messageKey)}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Code-splitting dinámico (Fase 1 de Rendimiento)
 const GamesExplorer = dynamic(
   () => import('@/folders/Games/GamesExplorer').then((mod) => mod.GamesExplorer),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Iniciando Juegos Clásicos..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.games" />,
   }
 );
 
@@ -36,7 +40,7 @@ const TimelineAlbum = dynamic(
   () => import('@/folders/Comments/TimelineAlbum').then((mod) => mod.TimelineAlbum),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Abriendo Álbum de Recuerdos..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.album" />,
   }
 );
 
@@ -44,7 +48,7 @@ const MusicPlayerApp = dynamic(
   () => import('@/folders/IfLoveWereSongs/MusicPlayerApp').then((mod) => mod.MusicPlayerApp),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Cargando Reproductor..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.player" />,
   }
 );
 
@@ -52,7 +56,7 @@ const MinesweeperApp = dynamic(
   () => import('@/folders/Minesweeper/MinesweeperApp').then((mod) => mod.MinesweeperApp),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Iniciando Buscaminas..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.minesweeper" />,
   }
 );
 
@@ -60,7 +64,7 @@ const SolitaireApp = dynamic(
   () => import('@/folders/Solitaire/SolitaireApp').then((mod) => mod.SolitaireApp),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Iniciando Solitario..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.solitaire" />,
   }
 );
 
@@ -68,7 +72,7 @@ const PinballApp = dynamic(
   () => import('@/folders/Pinball/PinballApp').then((mod) => mod.PinballApp),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Iniciando 3D Pinball: Space Cadet..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.pinball" />,
   }
 );
 
@@ -76,7 +80,7 @@ const PurblePlaceApp = dynamic(
   () => import('@/folders/PurblePlace/PurblePlaceApp').then((mod) => mod.PurblePlaceApp),
   {
     ssr: false,
-    loading: () => <WindowLoadingFallback message="Iniciando Purble Place..." />,
+    loading: () => <WindowLoadingFallback messageKey="loading.purblePlace" />,
   }
 );
 

@@ -8,10 +8,19 @@ export type Song = {
   coverUrl: string;
   audioUrl: string;
   dedication: string;
+  dedication_es: string;
+  dedication_en: string;
 };
 
 export const SPOTIFY_FULL_PLAYLIST_URL =
   'https://open.spotify.com/playlist/4MsctK8ce9jiAejXEJEIY8?si=d15e8f6312fb4f38';
+
+export const getSongDedication = (song: Song, lang: string): string => {
+  if (lang === 'en' && song.dedication_en) {
+    return song.dedication_en;
+  }
+  return song.dedication_es || song.dedication;
+};
 
 export const SONGS_DATA: Song[] = [
   {
@@ -24,6 +33,8 @@ export const SONGS_DATA: Song[] = [
     coverUrl: '/songs/covers/01-di-que-si.jpg',
     audioUrl: '/api/songs/audio/01',
     dedication: 'Cuando quieras saber cuante me gustas en costeñol',
+    dedication_es: 'Cuando quieras saber cuante me gustas en costeñol',
+    dedication_en: 'Whenever you want to know how much I like you in Costeño slang',
   },
   {
     id: '02',
@@ -35,6 +46,8 @@ export const SONGS_DATA: Song[] = [
     coverUrl: '/songs/covers/02-beso-rosalia.jpg',
     audioUrl: '/api/songs/audio/02',
     dedication: 'Lo mucho que te extraño y el como se siente tenerte lejos',
+    dedication_es: 'Lo mucho que te extraño y el como se siente tenerte lejos',
+    dedication_en: 'How much I miss you and what it feels like having you so far away',
   },
   {
     id: '03',
@@ -46,6 +59,8 @@ export const SONGS_DATA: Song[] = [
     coverUrl: '/songs/covers/03-smithereens.jpg',
     audioUrl: '/api/songs/audio/03',
     dedication: 'Lo capaz que soy de hacer por ti',
+    dedication_es: 'Lo capaz que soy de hacer por ti',
+    dedication_en: 'Everything I am capable of doing for you',
   },
   {
     id: '04',
@@ -58,6 +73,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/04',
     dedication:
       'Simbolo de cuanto te amo, el miedo que tuve en un principio y como tu amor me hace sentir cuando estoy contigo',
+    dedication_es:
+      'Simbolo de cuanto te amo, el miedo que tuve en un principio y como tu amor me hace sentir cuando estoy contigo',
+    dedication_en:
+      'A symbol of how much I love you, the fear I had at first, and how your love makes me feel when I am with you',
   },
   {
     id: '05',
@@ -70,6 +89,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/05',
     dedication:
       'Eres la mujer que tanto soñé y te convertiste en la mujer que quiero tener a mi lado',
+    dedication_es:
+      'Eres la mujer que tanto soñé y te convertiste en la mujer que quiero tener a mi lado',
+    dedication_en:
+      'You are the woman I dreamed of so much, and you became the woman I want by my side',
   },
   {
     id: '06',
@@ -82,6 +105,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/06',
     dedication:
       'Por mucho tiempo he estado buscando el amor y la perfección, al encontrarme contigo entendí que la perfección es algo que se contruye',
+    dedication_es:
+      'Por mucho tiempo he estado buscando el amor y la perfección, al encontrarme contigo entendí que la perfección es algo que se contruye',
+    dedication_en:
+      'For a long time I searched for love and perfection; upon finding you, I realized perfection is something we build together',
   },
   {
     id: '07',
@@ -94,6 +121,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/07',
     dedication:
       'Cuando te quieras enamorar de mi parla vieja, ya sabes a donde escuchar mi parla... ;)',
+    dedication_es:
+      'Cuando te quieras enamorar de mi parla vieja, ya sabes a donde escuchar mi parla... ;)',
+    dedication_en:
+      'Whenever you want to fall for my old charm and sweet talk, you know right where to listen... ;)',
   },
   {
     id: '08',
@@ -106,6 +137,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/08',
     dedication:
       '¿Quieres entender como me siento contigo a mi lado? Dale play y descubrelo cada vez que quieras recordarlo',
+    dedication_es:
+      '¿Quieres entender como me siento contigo a mi lado? Dale play y descubrelo cada vez que quieras recordarlo',
+    dedication_en:
+      'Want to understand how I feel with you by my side? Press play and discover it whenever you want a reminder',
   },
   {
     id: '09',
@@ -118,6 +153,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/09',
     dedication:
       'El amor fisico también es importante entre nosotros, por eso me salgo de lo romantico para decirte lo mucho que te deseo',
+    dedication_es:
+      'El amor fisico también es importante entre nosotros, por eso me salgo de lo romantico para decirte lo mucho que te deseo',
+    dedication_en:
+      'Physical love is also important between us, so I step out of romance for a moment to tell you just how much I desire you',
   },
   {
     id: '10',
@@ -130,6 +169,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/10',
     dedication:
       'En un principio me sentía así, dudaba de cuanto podrías llegar a amarme, pero quedate siempre con esas 7 palabras que dice Kaleth',
+    dedication_es:
+      'En un principio me sentía así, dudaba de cuanto podrías llegar a amarme, pero quedate siempre con esas 7 palabras que dice Kaleth',
+    dedication_en:
+      'At first I felt like this, wondering how deeply you could love me, but always hold onto those 7 words Kaleth sings',
   },
   {
     id: '11',
@@ -142,6 +185,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/11',
     dedication:
       'Expresa cuan capaz me sentía yo por tener una cita contigo cuando aún estabamos empezando a salir...',
+    dedication_es:
+      'Expresa cuan capaz me sentía yo por tener una cita contigo cuando aún estabamos empezando a salir...',
+    dedication_en:
+      'Captures just how determined I felt to have a date with you when we were just starting to go out...',
   },
   {
     id: '12',
@@ -154,6 +201,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/12',
     dedication:
       'Para que recordemos aquellos tiempos de 2022 ;) ¿No te hace sentir igual?',
+    dedication_es:
+      'Para que recordemos aquellos tiempos de 2022 ;) ¿No te hace sentir igual?',
+    dedication_en:
+      'So we remember those times back in 2022 ;) Doesn’t it make you feel the same?',
   },
   {
     id: '13',
@@ -166,6 +217,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/13',
     dedication:
       '¿Quieres saber en qué epoca me enamoré de ti? La pista está en el nombre de la canción',
+    dedication_es:
+      '¿Quieres saber en qué epoca me enamoré de ti? La pista está en el nombre de la canción',
+    dedication_en:
+      'Want to know what time of year I fell in love with you? The clue is in the song name',
   },
   {
     id: '14',
@@ -177,6 +232,8 @@ export const SONGS_DATA: Song[] = [
     coverUrl: '/songs/covers/14-baby-im-yours.jpg',
     audioUrl: '/api/songs/audio/14',
     dedication: 'Vivo por y para ti, incluso si el cielo llegase a quedarse sin estrellas',
+    dedication_es: 'Vivo por y para ti, incluso si el cielo llegase a quedarse sin estrellas',
+    dedication_en: 'I live for you and only you, even if the sky were to run out of stars',
   },
   {
     id: '15',
@@ -189,6 +246,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/15',
     dedication:
       'Quiero recordarte que mi amor se escribe en prosa y la música habla por mi; de manera que quiero que conecte con cada una de las canciones que aquí yacen',
+    dedication_es:
+      'Quiero recordarte que mi amor se escribe en prosa y la música habla por mi; de manera que quiero que conecte con cada una de las canciones que aquí yacen',
+    dedication_en:
+      'I want to remind you that my love is written in prose and music speaks for me; may it connect with every single song that lies here',
   },
   {
     id: '16',
@@ -201,6 +262,10 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/16',
     dedication:
       'Te amo, BESAME ¿Nos peleamos? Besame ¿No hay palabras? Besame. Solo con un beso podemos expresar lo que con palabras no podemos',
+    dedication_es:
+      'Te amo, BESAME ¿Nos peleamos? Besame ¿No hay palabras? Besame. Solo con un beso podemos expresar lo que con palabras no podemos',
+    dedication_en:
+      'I love you, KISS ME. Did we fight? Kiss me. No words? Kiss me. Only with a kiss can we express what words cannot',
   },
   {
     id: '17',
@@ -213,5 +278,9 @@ export const SONGS_DATA: Song[] = [
     audioUrl: '/api/songs/audio/17',
     dedication:
       'Aunque Héctor quiera transmitir incertidumbre por lo que la otra persona siente; YO quiero mostrarte nuevamente que en la relación habrá incertidumbre por no saber que sucederá en un futuro o que nos depara, de lo que sí estoy seguro es de lo mucho que te amo, como eres a mi ojos (esto se refleja en la segunda parte de la canción) y a todos los lugares que quiero llevarte',
+    dedication_es:
+      'Aunque Héctor quiera transmitir incertidumbre por lo que la otra persona siente; YO quiero mostrarte nuevamente que en la relación habrá incertidumbre por no saber que sucederá en un futuro o que nos depara, de lo que sí estoy seguro es de lo mucho que te amo, como eres a mi ojos (esto se refleja en la segunda parte de la canción) y a todos los lugares que quiero llevarte',
+    dedication_en:
+      'Though Héctor sings of uncertainty about what the other person feels, I want to show you that even when the future brings uncertainty and we do not know what lies ahead, what I am entirely certain of is how deeply I love you, how radiant you are in my eyes (reflected in the second part of the song), and all the places in this world I want to take you',
   },
 ];

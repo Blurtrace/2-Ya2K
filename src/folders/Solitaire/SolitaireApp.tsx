@@ -22,6 +22,7 @@ import {
   playVictoryFanfare,
 } from './sounds';
 import { useOs } from '@/os/state/OsContext';
+import { useT } from '@/i18n/I18nContext';
 
 type DraggingState = {
   cards: Card[];
@@ -39,6 +40,7 @@ type DraggingState = {
 
 export const SolitaireApp = () => {
   const { dispatch } = useOs();
+  const { t } = useT();
 
   // Estado del juego
   const [stock, setStock] = useState<Card[]>([]);
@@ -524,7 +526,7 @@ export const SolitaireApp = () => {
               openMenu === 'juego' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            <span className="underline">J</span>uego
+            <span className="underline">{t('menu.game').charAt(0)}</span>{t('menu.game').slice(1)}
           </button>
           {openMenu === 'juego' && (
             <div
@@ -536,7 +538,7 @@ export const SolitaireApp = () => {
                 onClick={startNewGame}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white flex justify-between"
               >
-                <span>Repartir nuevo</span>
+                <span>{t('menu.newGame')}</span>
                 <span className="text-gray-500 hover:text-white">F2</span>
               </button>
               <button
@@ -549,7 +551,7 @@ export const SolitaireApp = () => {
                     : 'hover:bg-[#000080] hover:text-white'
                 }`}
               >
-                <span>Deshacer</span>
+                <span>{t('solitaire.undo')}</span>
                 <span className="text-gray-500 hover:text-white">Ctrl+Z</span>
               </button>
               <div className="h-[1px] bg-gray-400 my-1 mx-1" />
@@ -558,7 +560,7 @@ export const SolitaireApp = () => {
                 onClick={() => setShowBackDialog(true)}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Opción de baraja...
+                {t('solitaire.chooseCardBack')}
               </button>
               <div className="h-[1px] bg-gray-400 my-1 mx-1" />
               <button
@@ -566,7 +568,7 @@ export const SolitaireApp = () => {
                 onClick={() => dispatch({ type: 'CLOSE', id: 'solitaire' })}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Salir
+                {t('menu.exit')}
               </button>
             </div>
           )}
@@ -581,7 +583,7 @@ export const SolitaireApp = () => {
               openMenu === 'opciones' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            <span className="underline">O</span>pciones
+            <span className="underline">{t('menu.options').charAt(0)}</span>{t('menu.options').slice(1)}
           </button>
           {openMenu === 'opciones' && (
             <div
@@ -597,7 +599,7 @@ export const SolitaireApp = () => {
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white flex items-center space-x-2"
               >
                 <span>{drawMode === 1 ? '✓' : ' '}</span>
-                <span>Robar 1 carta</span>
+                <span>{t('solitaire.draw1')}</span>
               </button>
               <button
                 type="button"
@@ -608,7 +610,7 @@ export const SolitaireApp = () => {
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white flex items-center space-x-2"
               >
                 <span>{drawMode === 3 ? '✓' : ' '}</span>
-                <span>Robar 3 cartas</span>
+                <span>{t('solitaire.draw3')}</span>
               </button>
             </div>
           )}
@@ -623,7 +625,7 @@ export const SolitaireApp = () => {
               openMenu === 'ayuda' ? 'bg-[#000080] text-white' : ''
             }`}
           >
-            <span className="underline">A</span>yuda
+            <span className="underline">{t('menu.help').charAt(0)}</span>{t('menu.help').slice(1)}
           </button>
           {openMenu === 'ayuda' && (
             <div
@@ -635,7 +637,7 @@ export const SolitaireApp = () => {
                 onClick={() => setShowHelpDialog(true)}
                 className="w-full text-left px-3 py-1 hover:bg-[#000080] hover:text-white"
               >
-                Cómo jugar Solitario
+                {t('solitaire.howToPlay')}
               </button>
             </div>
           )}
@@ -649,7 +651,7 @@ export const SolitaireApp = () => {
             className="ml-auto mr-1 px-2 py-0.5 bg-yellow-300 text-black font-bold win-raised text-[10px] animate-pulse flex items-center space-x-1"
           >
             <span>⚡</span>
-            <span>Auto-completar</span>
+            <span>{t('solitaire.autoComplete')}</span>
           </button>
         )}
       </div>
@@ -829,18 +831,18 @@ export const SolitaireApp = () => {
       <div className="bg-[#C0C0C0] text-black text-[11px] h-[22px] px-2 flex items-center justify-between border-t border-[#808080] select-none font-mono">
         <div className="flex items-center space-x-4">
           <div className="win-sunken px-2 py-[1px] bg-white min-w-[100px]">
-            Puntuación: <span className="font-bold">{score}</span>
+            {t('solitaire.score')} <span className="font-bold">{score}</span>
           </div>
           <div className="win-sunken px-2 py-[1px] bg-white min-w-[90px]">
-            Tiempo: <span className="font-bold">{timerSeconds}s</span>
+            {t('solitaire.time')} <span className="font-bold">{timerSeconds}s</span>
           </div>
           <div className="win-sunken px-2 py-[1px] bg-white min-w-[100px]">
-            Movimientos: <span className="font-bold">{moves}</span>
+            {t('solitaire.moves')} <span className="font-bold">{moves}</span>
           </div>
         </div>
 
         <div className="text-[10px] text-gray-600 font-sans hidden sm:block">
-          Modo: Robar {drawMode}
+          {t('solitaire.modeDraw', { count: drawMode })}
         </div>
       </div>
 
@@ -858,7 +860,7 @@ export const SolitaireApp = () => {
         <div className="absolute inset-0 z-50 bg-black/30 flex items-center justify-center p-4 select-none">
           <div className="win-raised bg-[#C0C0C0] p-[3px] w-full max-w-[380px] text-black">
             <div className="win-titlebar-active flex items-center justify-between px-1.5 py-0.5 mb-2">
-              <span className="text-[11px] font-bold">Ayuda de Solitario</span>
+              <span className="text-[11px] font-bold">{t('solitaire.howToPlayTitle')}</span>
               <button
                 type="button"
                 onClick={() => setShowHelpDialog(false)}
@@ -868,34 +870,19 @@ export const SolitaireApp = () => {
               </button>
             </div>
             <div className="p-3 text-[11px] leading-relaxed win-sunken bg-white max-h-[260px] overflow-y-auto">
-              <h3 className="font-bold text-[12px] mb-1">Objetivo del juego:</h3>
+              <h3 className="font-bold text-[12px] mb-1">{t('solitaire.goalTitle')}</h3>
               <p className="mb-2">
-                Construir las cuatro fundaciones superiores en orden ascendente
-                desde el As hasta el Rey (A, 2, 3... K) para cada uno de los
-                cuatro palos.
+                {t('solitaire.goalDesc')}
               </p>
-              <h3 className="font-bold text-[12px] mb-1">Reglas del tablero:</h3>
+              <h3 className="font-bold text-[12px] mb-1">{t('solitaire.rulesTitle')}</h3>
               <ul className="list-disc pl-4 space-y-1 mb-2">
-                <li>
-                  Las cartas en el tablero se colocan en orden descendente
-                  alternando colores (rojo sobre negro y viceversa).
-                </li>
-                <li>
-                  Solo los Reyes (K) pueden ocupar una columna vacía en el
-                  tablero.
-                </li>
-                <li>
-                  Haz clic en el mazo para descubrir cartas.
-                </li>
-                <li>
-                  Haz un solo clic sobre cualquier carta para moverla
-                  automáticamente a la mejor casilla disponible.
-                </li>
+                <li>{t('solitaire.rule1')}</li>
+                <li>{t('solitaire.rule2')}</li>
+                <li>{t('solitaire.rule3')}</li>
+                <li>{t('solitaire.rule4')}</li>
               </ul>
-              <h3 className="font-bold text-[12px] mb-1">Atajos útiles:</h3>
-              <p>
-                <b>F2:</b> Nueva partida &bull; <b>Ctrl+Z:</b> Deshacer
-              </p>
+              <h3 className="font-bold text-[12px] mb-1">{t('solitaire.shortcutsTitle')}</h3>
+              <p>{t('solitaire.shortcutsDesc')}</p>
             </div>
             <div className="flex justify-end p-2">
               <button
@@ -903,7 +890,7 @@ export const SolitaireApp = () => {
                 onClick={() => setShowHelpDialog(false)}
                 className="win-button win-button-default min-w-[70px] py-0.5 text-[11px] font-bold"
               >
-                Aceptar
+                {t('dialog.ok')}
               </button>
             </div>
           </div>

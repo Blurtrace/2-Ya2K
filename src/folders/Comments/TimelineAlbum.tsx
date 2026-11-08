@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { albumData, type MediaItem } from './albumData';
+import { albumData, type MediaItem, getAlbumDisplayDate, getAlbumLocation } from './albumData';
 import { PolaroidCard } from './PolaroidCard';
+import { useT } from '@/i18n/I18nContext';
 
 /**
  * Visor de Álbum Fotográfico Cronológico estilo Windows 98 Classic.
@@ -10,6 +11,7 @@ import { PolaroidCard } from './PolaroidCard';
  * modo diapositivas, revelado químico progresivo y tarjeta Polaroid volteable.
  */
 export const TimelineAlbum = () => {
+  const { lang, t } = useT();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPlayingSlideshow, setIsPlayingSlideshow] = useState(false);
@@ -26,15 +28,18 @@ export const TimelineAlbum = () => {
     });
   }, []);
 
+  const birthdayLabel = t('album.birthdayCard');
+  const undatedLabel = t('album.undated');
+
   // Lista única de años ordenados para la línea de tiempo inferior
   const timelineYears = useMemo(() => {
     const yearsMap = new Map<string, number>(); // Label -> First index
     albumData.forEach((item, index) => {
       const label = item.mediaType === 'card'
-        ? 'Cumpleaños 🎂'
+        ? birthdayLabel
         : item.year !== null
         ? String(item.year)
-        : 'Sin Fecha';
+        : undatedLabel;
 
       if (!yearsMap.has(label)) {
         yearsMap.set(label, index);
@@ -45,7 +50,7 @@ export const TimelineAlbum = () => {
       label,
       index,
     }));
-  }, []);
+  }, [birthdayLabel, undatedLabel]);
 
   // Navegación anterior / siguiente
   const handlePrev = useCallback(() => {
@@ -92,10 +97,14 @@ export const TimelineAlbum = () => {
 
   // Identificar el año activo actual
   const activeYearLabel = currentItem.mediaType === 'card'
-    ? 'Cumpleaños 🎂'
+    ? birthdayLabel
     : currentItem.year !== null
     ? String(currentItem.year)
-    : 'Sin Fecha';
+    : undatedLabel;
+
+  const currentDisplayDate = getAlbumDisplayDate(currentItem, lang);
+  const currentLocation = getAlbumLocation(currentItem, lang);
+  const senderName = currentItem.sender === 'Familia' && lang === 'en' ? t('album.senderFamily') : currentItem.sender;
 
   return (
     <div className="flex-1 flex flex-col h-full bg-[#C0C0C0] text-black select-none overflow-hidden font-sans">
@@ -106,10 +115,10 @@ export const TimelineAlbum = () => {
           <button
             onClick={handlePrev}
             className="win-raised active:win-pressed px-2.5 py-1 bg-[#C0C0C0] text-black text-[11px] font-bold flex items-center space-x-1 cursor-pointer"
-            title="Foto anterior (Flecha Izquierda)"
+            title={t('album.prevPhotoTitle')}
           >
             <span>⏮️</span>
-            <span>Anterior</span>
+            <span>{t('album.prev')}</span>
           </button>
 
           <button
@@ -117,18 +126,18 @@ export const TimelineAlbum = () => {
             className={`px-2.5 py-1 text-[11px] font-bold flex items-center space-x-1 cursor-pointer ${
               isPlayingSlideshow ? 'win-pressed bg-[#e0e0e0]' : 'win-raised bg-[#C0C0C0]'
             }`}
-            title="Reproducción automática de diapositivas"
+            title={t('album.slideshowTitle')}
           >
             <span>{isPlayingSlideshow ? '⏸️' : '▶️'}</span>
-            <span>{isPlayingSlideshow ? 'Pausa' : 'Diapositivas'}</span>
+            <span>{isPlayingSlideshow ? t('album.pause') : t('album.slideshow')}</span>
           </button>
 
           <button
             onClick={handleNext}
             className="win-raised active:win-pressed px-2.5 py-1 bg-[#C0C0C0] text-black text-[11px] font-bold flex items-center space-x-1 cursor-pointer"
-            title="Foto siguiente (Flecha Derecha)"
+            title={t('album.nextPhotoTitle')}
           >
-            <span>Siguiente</span>
+            <span>{t('album.next')}</span>
             <span>⏭️</span>
           </button>
 
@@ -137,10 +146,10 @@ export const TimelineAlbum = () => {
           <button
             onClick={handleToggleFlip}
             className="win-raised active:win-pressed px-2.5 py-1 bg-[#C0C0C0] text-black text-[11px] font-bold flex items-center space-x-1 cursor-pointer"
-            title="Voltear fotografía para ver dedicatoria (Barra Espaciadora)"
+            title={t('album.flipPhotoTitle')}
           >
             <span>🔄</span>
-            <span>{isFlipped ? 'Ver Foto' : 'Voltear Carta'}</span>
+            <span>{isFlipped ? t('album.viewPhoto') : t('album.flipCard')}</span>
           </button>
         </div>
 
@@ -150,7 +159,7 @@ export const TimelineAlbum = () => {
             [{currentIndex + 1} / {albumData.length}]
           </span>
           <span className="text-black font-sans font-semibold">
-            {currentItem.displayDate} {currentItem.location ? `— ${currentItem.location}` : ''}
+            {currentDisplayDate} {currentLocation ? `— ${currentLocation}` : ''}
           </span>
         </div>
       </div>
@@ -170,8 +179,8 @@ export const TimelineAlbum = () => {
       {/* ================= LÍNEA DE TIEMPO CRONOLÓGICA INFERIOR ================= */}
       <div className="border-t border-[#808080] bg-[#C0C0C0] px-2 py-1.5 flex flex-col space-y-1">
         <div className="flex items-center justify-between text-[10px] text-[#444] px-1 font-bold">
-          <span>LÍNEA DE TIEMPO CRONOLÓGICA (2009 — 2026)</span>
-          <span>{currentItem.sender ? `Remitente: ${currentItem.sender}` : ''}</span>
+          <span>{t('album.timelineTitle')}</span>
+          <span>{currentItem.sender ? t('album.sender', { name: senderName }) : ''}</span>
         </div>
 
         {/* Carrusel horizontal de años / hitos */}
@@ -190,7 +199,7 @@ export const TimelineAlbum = () => {
                     ? 'bg-[#000080] text-white font-bold'
                     : 'bg-[#E0E0E0] hover:bg-[#D0D0D0] text-black win-raised'
                 }`}
-                title={`Ir a ${label}`}
+                title={t('album.goToYear', { year: label })}
               >
                 {label}
               </button>
