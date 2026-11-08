@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 // Fecha y hora objetivo de liberación: 10 de noviembre de 2026, 00:00:00 hora de Colombia (Bogotá, UTC-5)
 export const TARGET_TIMESTAMP_MS = Date.parse('2026-11-10T00:00:00-05:00');
-export const PREVIEW_SECRET = 'jandy2026';
+export const PREVIEW_SECRET = '91588493564949657603';
 export const PREVIEW_COOKIE_NAME = 'ecos_y2k_preview';
 
 /**

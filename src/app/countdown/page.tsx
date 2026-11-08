@@ -7,7 +7,7 @@ import { GuideCharacter } from '@/guide/GuideCharacter';
 
 // Fecha y hora objetivo: 10 de noviembre de 2026, 00:00:00 hora de Colombia (Bogotá, UTC-5)
 const TARGET_TIMESTAMP_MS = Date.parse('2026-11-10T00:00:00-05:00');
-const PREVIEW_SECRET = 'jandy2026';
+const PREVIEW_SECRET = '91588493564949657603';
 
 export default function CountdownPage() {
   const router = useRouter();
