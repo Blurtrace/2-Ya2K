@@ -26,6 +26,12 @@ export const folders: FolderDef[] = [
     status: 'ready',                         // Papelera de reciclaje interactiva con recuerdos protegidos
   },
   {
+    id: 'paint',
+    nameKey: 'app.paint',                    // "Beauty - Paint"
+    icon: '/icons/paint.png',
+    status: 'ready',                         // Microsoft Paint retro con fotografía de Yaczury
+  },
+  {
     id: 'games',
     nameKey: 'folder.games',                 // "Juegos" / "Games"
     icon: '/icons/folder-games.png',

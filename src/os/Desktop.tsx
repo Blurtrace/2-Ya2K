@@ -116,6 +116,14 @@ const RecycleBinExplorer = dynamic(
   }
 );
 
+const PaintApp = dynamic(
+  () => import('@/folders/Paint/PaintApp').then((mod) => mod.PaintApp),
+  {
+    ssr: false,
+    loading: () => <WindowLoadingFallback messageKey="loading.paint" />,
+  }
+);
+
 const GuideAssistant = dynamic(
   () => import('@/guide/GuideAssistant').then((mod) => mod.GuideAssistant),
   { ssr: false }
@@ -267,7 +275,9 @@ export const Desktop = () => {
 
         return (
           <Window key={win.id} windowState={win} folderDef={folder}>
-            {win.id === 'games' ? (
+            {win.id === 'paint' ? (
+              <PaintApp />
+            ) : win.id === 'games' ? (
               <GamesExplorer />
             ) : win.id === 'comments' ? (
               <TimelineAlbum />

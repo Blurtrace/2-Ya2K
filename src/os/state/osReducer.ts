@@ -1,11 +1,22 @@
 import type { OsState, OsAction, WindowState } from './types';
 
 export const initialOsState: OsState = {
-  windows: [],
-  activeId: null,
+  windows: [
+    {
+      id: 'paint',
+      x: 24,
+      y: 16,
+      width: 480,
+      height: 600,
+      zIndex: 10,
+      minimized: false,
+      maximized: false,
+    },
+  ],
+  activeId: 'paint',
   selectedIconId: null,
   startMenuOpen: false,
-  nextZ: 10,
+  nextZ: 11,
   modal: null,
   contextMenu: null,
   iconSortOrder: 'default',
@@ -46,6 +57,7 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       const offsetY = 50 + (openCount % 8) * 24;
       const nextZ = state.nextZ + 1;
 
+      const isPaint = action.id === 'paint';
       const isGames = action.id === 'games';
       const isComments = action.id === 'comments';
       const isOurLove = action.id === 'our-love';
@@ -58,14 +70,14 @@ export const osReducer = (state: OsState, action: OsAction): OsState => {
       const isSpecialVoucher = action.id === 'special-voucher';
       const isMyComputer = action.id === 'my-computer';
       const isRecycleBin = action.id === 'recycle-bin';
-      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace || isSpecialVoucher || isRecycleBin;
+      const isLarge = isGames || isComments || isOurLove || isSongs || isSolitaire || isPinball || isPurblePlace || isSpecialVoucher || isRecycleBin || isPaint;
 
       const newWindow: WindowState = {
         id: action.id,
-        x: isLarge ? Math.max(16, offsetX - 30) : isMinesweeper ? Math.max(100, offsetX) : offsetX,
-        y: isLarge ? 16 : isMinesweeper ? 60 : offsetY,
-        width: (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isSpecialVoucher ? 620 : isRecycleBin ? 600 : isPinball ? 640 : isSolitaire ? 680 : isMyComputer ? 480 : isVoucherValidator ? 460 : isMinesweeper ? 212 : 440,
-        height: (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isSpecialVoucher ? 520 : isRecycleBin ? 420 : isPinball ? 540 : isSolitaire ? 520 : isMyComputer ? 320 : isVoucherValidator ? 420 : isMinesweeper ? 305 : 300,
+        x: isPaint ? Math.max(20, offsetX - 40) : isLarge ? Math.max(16, offsetX - 30) : isMinesweeper ? Math.max(100, offsetX) : offsetX,
+        y: isPaint ? 16 : isLarge ? 16 : isMinesweeper ? 60 : offsetY,
+        width: isPaint ? 480 : (isComments || isOurLove) ? 760 : isSongs ? 720 : isGames ? 740 : isPurblePlace ? 760 : isSpecialVoucher ? 620 : isRecycleBin ? 600 : isPinball ? 640 : isSolitaire ? 680 : isMyComputer ? 480 : isVoucherValidator ? 460 : isMinesweeper ? 212 : 440,
+        height: isPaint ? 600 : (isComments || isOurLove) ? 620 : isSongs ? 620 : isGames ? 520 : isPurblePlace ? 560 : isSpecialVoucher ? 520 : isRecycleBin ? 420 : isPinball ? 540 : isSolitaire ? 520 : isMyComputer ? 320 : isVoucherValidator ? 420 : isMinesweeper ? 305 : 300,
         zIndex: nextZ,
         minimized: false,
         maximized: false,

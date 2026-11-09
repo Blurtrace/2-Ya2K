@@ -17,6 +17,7 @@ export const dictionaryEs: Record<string, string> = {
   'app.purblePlace': 'Purble Place',
   'app.voucherValidator': 'Validador de Vouchers',
   'app.specialVoucher': 'Voucher Especial',
+  'app.paint': 'Beauty - Paint',
   'folder.underConstruction': 'Esta carpeta está en construcción.',
   'folder.back': 'Atrás',
   'folder.itemsCount': '{count} objeto(s)',
@@ -368,6 +369,7 @@ export const dictionaryEs: Record<string, string> = {
   'loading.voucherValidator': 'Iniciando Validador de Vouchers...',
   'loading.specialVoucher': 'Cargando Voucher Especial...',
   'loading.recycleBin': 'Abriendo Papelera de reciclaje...',
+  'loading.paint': 'Iniciando Beauty - Paint...',
 
   // Guía interactiva BT21 (TATA & COOKY)
   'guide.windowTitle': 'ECOS 98 — Guía BT21',
