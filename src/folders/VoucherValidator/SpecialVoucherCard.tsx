@@ -19,7 +19,6 @@ type SpecialVoucherCardProps = {
  */
 export const SpecialVoucherCard = ({
   isFlipped,
-  onFlipToggle,
   isPrizeRevealed,
   onPrizeRevealed,
   prizeTitle,
@@ -155,7 +154,7 @@ export const SpecialVoucherCard = ({
     scratchAt(e.clientX, e.clientY);
   };
 
-  const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+  const handlePointerUp = () => {
     if (!isScratching) return;
     setIsScratching(false);
     checkScratchPercentage();

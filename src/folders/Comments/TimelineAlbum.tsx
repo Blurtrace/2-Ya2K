@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { albumData, type MediaItem, getAlbumDisplayDate, getAlbumLocation } from './albumData';
+import { albumData, getAlbumDisplayDate, getAlbumLocation } from './albumData';
 import { PolaroidCard } from './PolaroidCard';
 import { useT } from '@/i18n/I18nContext';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import type { ModalState } from './state/types';
 import { useOs } from './state/OsContext';
@@ -18,16 +18,16 @@ export const MessageBox = ({ modal }: MessageBoxProps) => {
   const { dispatch } = useOs();
   const { t } = useT();
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     dispatch({ type: 'CLOSE_MODAL' });
-  };
+  }, [dispatch]);
 
-  const handleConfirm = () => {
+  const handleConfirm = useCallback(() => {
     if (modal.onConfirm) {
       modal.onConfirm();
     }
     handleClose();
-  };
+  }, [modal, handleClose]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -39,7 +39,7 @@ export const MessageBox = ({ modal }: MessageBoxProps) => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modal]);
+  }, [handleClose, handleConfirm]);
 
   // Selección del icono del diálogo
   const iconSrc =

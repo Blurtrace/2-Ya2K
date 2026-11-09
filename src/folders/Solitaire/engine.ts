@@ -1,4 +1,4 @@
-import type { Card, CardLocation, HistorySnapshot, Rank, Suit } from './types';
+import type { Card, HistorySnapshot, Rank, Suit } from './types';
 import { getSuitColor } from './CardView';
 
 const SUITS: Suit[] = ['hearts', 'diamonds', 'clubs', 'spades'];

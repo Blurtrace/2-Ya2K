@@ -409,7 +409,7 @@ export const RecycleBinExplorer = () => {
                   {t('recycleBin.accessDeniedHeading')}
                 </p>
                 <p className="font-medium text-black">
-                  "{t('recycleBin.accessDeniedText')}" ❤️
+                  &ldquo;{t('recycleBin.accessDeniedText')}&rdquo; ❤️
                 </p>
               </div>
             </div>

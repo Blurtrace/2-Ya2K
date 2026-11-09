@@ -90,6 +90,7 @@ export const MinesweeperApp = () => {
   // Initial mount
   useEffect(() => {
     resetGame(difficulty);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Timer interval effect

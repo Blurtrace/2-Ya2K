@@ -14,7 +14,6 @@ export default function CountdownPage() {
   const { lang, setLang, t } = useT();
 
   const [remainingMs, setRemainingMs] = useState<number>(() => Math.max(0, TARGET_TIMESTAMP_MS - Date.now()));
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const [bogotaTimeText, setBogotaTimeText] = useState<string>('--:--:--');
   const [showDeveloperModal, setShowDeveloperModal] = useState(false);
   const [developerKey, setDeveloperKey] = useState('');
@@ -23,6 +22,13 @@ export default function CountdownPage() {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const serverOffsetRef = useRef<number>(0);
+
+  const triggerUnlock = useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      router.push('/');
+    }, 3500);
+  }, [router]);
 
   // Sincronizar con el reloj real del servidor para evitar discrepancias locales
   const syncServerTime = useCallback(async () => {
@@ -50,15 +56,7 @@ export default function CountdownPage() {
     } catch {
       // Fallback a hora local
     }
-  }, []);
-
-  const triggerUnlock = () => {
-    setIsUnlocked(true);
-    setIsTransitioning(true);
-    setTimeout(() => {
-      router.push('/');
-    }, 3500);
-  };
+  }, [triggerUnlock]);
 
   useEffect(() => {
     syncServerTime();
@@ -90,7 +88,7 @@ export default function CountdownPage() {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [syncServerTime]);
+  }, [syncServerTime, triggerUnlock]);
 
   // Cálculos de tiempo
   const totalSeconds = Math.floor(remainingMs / 1000);
@@ -258,7 +256,7 @@ export default function CountdownPage() {
             <div className="flex-1 min-w-0">
               <div className="win-sunken bg-[#FFFFE5] p-2 text-black text-[11px] leading-relaxed border border-[#A0A080] shadow-sm">
                 <p className="font-sans font-medium text-black">
-                  "{t('countdown.tataBubble')}"
+                  &ldquo;{t('countdown.tataBubble')}&rdquo;
                 </p>
               </div>
 

@@ -15,7 +15,7 @@ const STORAGE_KEY = 'ecos_discovered_songs';
 
 export const MusicPlayerApp = () => {
   const { dispatch } = useOs();
-  const { lang, t } = useT();
+  const { t } = useT();
 
   // Estado de autenticación
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
