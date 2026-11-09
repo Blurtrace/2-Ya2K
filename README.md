@@ -1,5 +1,21 @@
 # 💾 ECOS — 2-Ya2K (Windows 98 / Y2K)
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js%2015-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 15" />
+  <img src="https://img.shields.io/badge/React%2019-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript%205.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.7" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS%20v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+  <img src="https://img.shields.io/badge/Vercel%20Edge-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Edge" />
+  <br>
+  <img src="https://img.shields.io/badge/HTML5%20Canvas%202D-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5 Canvas 2D" />
+  <img src="https://img.shields.io/badge/Web%20Audio%20API-FF6F00?style=for-the-badge&logo=soundcharts&logoColor=white" alt="Web Audio API" />
+  <img src="https://img.shields.io/badge/ESLint%209-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint 9" />
+  <img src="https://img.shields.io/badge/i18n-ES%20%7C%20EN-000080?style=for-the-badge&logo=translate&logoColor=white" alt="i18n ES/EN" />
+  <img src="https://img.shields.io/badge/Theme-Windows%2098%20%7C%20Y2K-008080?style=for-the-badge&logo=windows95&logoColor=white" alt="Windows 98 Y2K" />
+</p>
+
+---
+
 > ### 🎁 Propósito y Dedicatoria de Cumpleaños
 > **ECOS** fue concebido y desarrollado desde su origen por **BlurTrace (Jandy)** como un regalo de cumpleaños inolvidable para **Yaczury (Yac)**, la persona que inspira cada línea de código de este proyecto. 
 > 
@@ -21,7 +37,7 @@ ECOS funciona como un **entorno de escritorio completo (Web Desktop OS)** ejecut
 - **Desbloqueo Automático y Acceso Anticipado:** Al cumplirse el milenio, el sistema ejecuta una transición animada hacia `/`. Para pruebas y desarrollo, existe un modal discreto con la clave secreta que genera una cookie criptográfica de bypass (`ecos_preview_unlocked`).
 
 ### 2. 🪟 Kernel de Escritorio y Gestor de Ventanas (Window Manager)
-- **Arquitectura de Estado Global:** Motor reactivo centralizado con `useReducer` y `useContext` (`OsContext`) completamente inmutable y funcional (sin Programación Orientada a Objetos ni clases).
+- **Arquitectura de Estado Global:** Motor reactivo centralizado con `useReducer` y `useContext` (`OsContext`) completamente inmutable y funcional (100% libre de Programación Orientada a Objetos o clases).
 - **Gestión Avanzada de Ventanas:** Soporte para apertura múltiple, posicionamiento en cascada inteligente (+24 px), apilamiento dinámico de profundidad (`zIndex`), minimizar, maximizar a pantalla completa y cierre.
 - **Arrastre Fluido por Pointer Events:** Control con soporte nativo unificado para ratón de escritorio y pantallas táctiles móviles mediante `setPointerCapture`.
 - **Adaptabilidad Responsive:** Detección de dispositivos móviles (≤ 768 px) con apertura maximizada automática para una experiencia táctil cómoda.
@@ -50,23 +66,6 @@ ECOS funciona como un **entorno de escritorio completo (Web Desktop OS)** ejecut
 ### 5. 🌐 Soporte Bilingüe Instantáneo (i18n)
 - Traducción completa en tiempo real entre **Español (`ES`)** e **Inglés (`EN`)** sin recargar la página.
 - Abarca menús, barras de tareas, nombres de archivos, cuadros de diálogo, diálogos de los guías de BT21 y mensajes del sistema.
-
----
-
-## 🛠️ Tecnologías y Librerías Utilizadas
-
-| Categoría | Tecnología | Uso en el Proyecto |
-| :--- | :--- | :--- |
-| **Framework Principal** | [Next.js 15 (App Router)](https://nextjs.org/) | Enrutamiento moderno, Server Component Handlers, compilación estática y Edge Middleware. |
-| **Librería UI** | [React 19](https://react.dev/) | Componentes funcionales, hooks avanzados (`useReducer`, `useContext`, `useCallback`, `useRef`, `useMemo`). |
-| **Lenguaje** | [TypeScript 5.7](https://www.typescriptlang.org/) | Tipado estático estricto, interfaces del sistema operativo y modelos de datos. |
-| **Motor de Estilos** | [TailwindCSS v4](https://tailwindcss.com/) | Utilidades atómicas, variables CSS nativas y directivas `@utility` personalizadas para biseles Win98 (`win-raised`, `win-sunken`, `win-pressed`). |
-| **Gráficos & Canvas** | HTML5 Canvas 2D API | Simulación de tarjeta de raspar interactiva con detección de superficie destapada. |
-| **Audio** | HTML5 Audio & Web Audio API | Streaming nativo de música con soporte de pausas/búsqueda y efectos de sonido mecánicos. |
-| **CDN & Media Assets** | Vercel Edge Network | Distribución global de canciones en alta calidad y fotografías optimizadas en `public/`. |
-| **Procesamiento Gráfico** | Sharp | Generación y optimización automatizada de iconos pixel-art en 32x32 y 16x16 píxeles. |
-| **Calidad de Código** | ESLint 9 (`next/core-web-vitals`) | Análisis estático y garantía de estándares rigurosos de código para producción. |
-| **Paradigma** | Arquitectura Funcional Pura | 100% libre de clases (POO); estructurado en funciones puras, inmutabilidad y composición modular. |
 
 ---
 
