@@ -467,7 +467,7 @@ export const albumData: MediaItem[] = [
     sender: 'Familia',
     quote: 'Siempre juntas <3',
     quoteEn: 'Always together <3',
-    src: "/photos/family's-pics/2025-ROCHI-MALECON.jfif",
+    src: "/photos/family's-pics/2025-ROCHI-MALECON.jpeg",
     mediaType: 'image',
   },
   {
@@ -602,7 +602,7 @@ export const albumData: MediaItem[] = [
     sender: 'Familia',
     quote: 'En nuestro viaje hija mía',
     quoteEn: 'On our trip, my daughter',
-    src: "/photos/family's-pics/2026-ROCHI-TRAVEL.jfif",
+    src: "/photos/family's-pics/2026-ROCHI-TRAVEL.jpeg",
     mediaType: 'image',
   },
   {
